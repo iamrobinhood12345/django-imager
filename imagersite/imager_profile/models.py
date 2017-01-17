@@ -42,7 +42,7 @@ class ImagerProfile(models.Model):
     type_photography = models.CharField(default='', max_length=35, choices=PHOTOGRAPHY_TYPES, blank=True, null=True)
     employable = models.BooleanField(default=True)
     address = models.CharField(max_length=255, blank=True, null=True)
-    bio = models.CharField(max_length=800, blank=True, null=True)
+    bio = models.TextField(default="")
     personal_website = models.URLField(blank=True, null=True)
     phone_number = models.CharField(max_length=12, blank=True, null=True)
     travel_radius = models.IntegerField(blank=True, null=True)
@@ -51,7 +51,7 @@ class ImagerProfile(models.Model):
     objects = models.Manager()
 
     def __str__(self):
-        return self.user.username
+        return "Username: {} \n Camera: {} \n Photography Type: {} \n Employable?: {} \n Address: {} \n About Me: {} \n Website: {} \n Phone: {} \n Travel Radius: {}".format(self.user.username, self.type_camera, self.type_photography, self.employable, self.address, self.bio, self. personal_website, self.phone_number, self.travel_radius)
 
     @property
     def is_active(self):
