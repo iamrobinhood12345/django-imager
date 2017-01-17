@@ -23,12 +23,12 @@ PHOTOGRAPHY_TYPES = (
 )
 
 
-class ActiveProfileManager(models.Manager):
+class ActiveUserManager(models.Manager):
     """Query ImagerProfile of active user."""
 
     def get_querysets(self):
         """Return query set of profiles for active users."""
-        query = super(ActiveProfileManager, self).get_querysets()
+        query = super(ActiveUserManager, self).get_querysets()
         return query.filter(user__is_active__exact=True)
 
 
@@ -47,8 +47,8 @@ class ImagerProfile(models.Model):
     phone_number = models.CharField(max_length=12, blank=True, null=True)
     travel_radius = models.IntegerField(blank=True, null=True)
     imager_id = models.UUIDField(default=uuid.uuid4, editable=False)
-    active = ActiveProfileManager()
-
+    active = ActiveUserManager()
+    objects = models.Manager()
 
     def __str__(self):
         return self.user.username
