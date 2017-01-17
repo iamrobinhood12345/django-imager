@@ -46,15 +46,16 @@ class ImagerProfile(models.Model):
     personal_website = models.URLField(blank=True, null=True)
     phone_number = models.CharField(max_length=12, blank=True, null=True)
     travel_radius = models.IntegerField(blank=True, null=True)
-    is_active = models.BooleanField(
-        default=True
-    )
     imager_id = models.UUIDField(default=uuid.uuid4, editable=False)
     active = ActiveProfileManager()
 
 
     def __str__(self):
         return self.user.username
+
+    @property
+    def is_active(self):
+        return self.user.is_active
 
 
 @receiver(post_save, sender=User)
