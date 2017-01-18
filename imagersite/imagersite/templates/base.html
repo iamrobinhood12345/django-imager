@@ -17,8 +17,9 @@
           <div class='col-md-9'>
             <ul class='nav nav-tabs pull-right'>
               <li role='presentation'><a href='#'>Home</a></li>
-              <li role='presentation'><a href='#'>Login/Logout</a></li>
-              <li role='presentation'><a href='#'>Register</a></li>
+              <li role='presentation'><a href='{% url "login" %}'>Login</a></li>
+              <li role='presentation'><a href='{% url "logout" %}'>Logout</a></li>
+              <li role='presentation'><a href='{% url "registration_register" %}'>Register</a></li>
               <li role='presentation'><a href='#'>Contact</a></li>
             </ul>
           </div>

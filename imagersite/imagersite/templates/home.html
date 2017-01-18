@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 {% block content %}
+{% load static %}
     <div class="jumbotron">
       <div class="container">
         <h3>
@@ -29,8 +30,7 @@
           <div class='col-md-4'>
             </div>
           <div class='col-md-4'>
-            {% load static %}
-            <img src="{% static image_ %}" alt="My image"/>
+            <img src="{% static 'images/image_1.jpg' %}" alt="My image"/>
             </div>
           <div class='col-md-4'>
              </div>
