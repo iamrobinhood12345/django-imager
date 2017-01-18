@@ -1,3 +1,6 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+def home(request):
+    """The home view directs here."""
+    return render(request, 'base.html')
