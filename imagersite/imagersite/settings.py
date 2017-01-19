@@ -25,7 +25,7 @@ SECRET_KEY = '150=t3r0)n7qzcs*0sivxeu7g@11)4*9)zj)ud9j(uuhhju$9w'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 
 
 # Application definition
@@ -132,3 +132,12 @@ STATIC_URL = '/imagersite/static/'
 #DJANGO-registration
 
 ACCOUNT_ACTIVATION_DAYS = 7
+
+#EMAIL STUFF
+#Code to run server python -m smtpd -n -c DebuggingServer 127.0.0.1:1025
+EMAIL_HOST = "127.0.0.1"
+EMAIL_PORT = "1025"
+
+#LOGIN/LOGOUT URLS
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
