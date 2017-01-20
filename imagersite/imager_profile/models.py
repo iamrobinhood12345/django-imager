@@ -26,9 +26,9 @@ PHOTOGRAPHY_TYPES = (
 class ActiveUserManager(models.Manager):
     """Query ImagerProfile of active user."""
 
-    def get_querysets(self):
+    def get_queryset(self):
         """Return query set of profiles for active users."""
-        query = super(ActiveUserManager, self).get_querysets()
+        query = super(ActiveUserManager, self).get_queryset()
         return query.filter(user__is_active__exact=True)
 
 
