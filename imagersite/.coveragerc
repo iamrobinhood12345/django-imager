@@ -2,6 +2,8 @@
 source = 
     imager_profile
     imagersite
+    imager_images
+    
 
 
 omit = 
