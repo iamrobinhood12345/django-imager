@@ -10,16 +10,21 @@
       <div class="container">
         <div class='row'>
           <div class='col-md-3'>
+          {% if user.is_authenticated %}
             <h1>
-              username
+            {{ user }}
             </h1>
+          {% endif %}
           </div>
           <div class='col-md-9'>
             <ul class='nav nav-tabs pull-right'>
-              <li role='presentation'><a href='#'>Home</a></li>
-              <li role='presentation'><a href='{% url "login" %}'>Login</a></li>
-              <li role='presentation'><a href='{% url "logout" %}'>Logout</a></li>
-              <li role='presentation'><a href='{% url "registration_register" %}'>Register</a></li>
+              <li role='presentation'><a href='{% url "home" %}'>Home</a></li>
+              {% if user.is_authenticated %}
+                <li role='presentation'><a href='{% url "logout" %}'>Logout</a></li>
+              {% else %}
+                <li role='presentation'><a href='{% url "login" %}'>Login</a></li>
+                <li role='presentation'><a href='{% url "registration_register" %}'>Register</a></li>
+              {% endif %}
               <li role='presentation'><a href='#'>Contact</a></li>
             </ul>
           </div>
