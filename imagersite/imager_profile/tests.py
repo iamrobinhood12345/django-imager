@@ -142,3 +142,25 @@ class ProfileFrontEndTests(TestCase):
         """Test registration redirects to proper location."""
         response = self.register_new_user(follow=True)
         self.assertTrue(response.redirect_chain[0][0] == '/registration/register/complete/')
+
+    def test_logout_route_redirects_to_home(self):
+        """Logout route redirect to homepage?."""
+        new_user = UserFactory.create()
+        new_user.set_password("tugboats")
+        new_user.save()
+        self.client.post("/login/", {
+            "username": new_user.username,
+            "password": "tugboats"}, follow=True)
+        response = self.client.get("/logout/", follow=True)
+        self.assertTrue(response.redirect_chain[0][0] == '/')
+
+    def test_logout_route_redirects(self):
+        """Logout route redirect in general?."""
+        new_user = UserFactory.create()
+        new_user.set_password("tugboats")
+        new_user.save()
+        self.client.post("/login/", {
+            "username": new_user.username,
+            "password": "tugboats"}, follow=True)
+        response = self.client.get("/logout/")
+        self.assertTrue(response.status_code == 302)
