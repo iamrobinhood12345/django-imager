@@ -78,7 +78,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'django_imager',
-        'USER': 'copenbacon',
+        'USER': os.environ['DB_USER'],
         'PASSWORD': os.environ['DB_PASS'],
         'HOST': '127.0.0.1',
         'PORT': '5432',
