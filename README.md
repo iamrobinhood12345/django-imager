@@ -1,6 +1,6 @@
 # django-imager
-[![Build Status](https://travis-ci.org/Copenbacon/django-imager.svg?branch=front-end-1)](https://travis-ci.org/Copenbacon/django-imager)
-[![Coverage Status](https://coveralls.io/repos/github/Copenbacon/django-imager/badge.svg?branch=front-end-1)](https://coveralls.io/github/Copenbacon/django-imager?branch=front-end-1)
+[![Build Status](https://travis-ci.org/Copenbacon/django-imager.svg?branch=models-2)](https://travis-ci.org/Copenbacon/django-imager)
+[![Coverage Status](https://coveralls.io/repos/github/Copenbacon/django-imager/badge.svg?branch=models-2)](https://coveralls.io/github/Copenbacon/django-imager?branch=models-2)
 
 ##ImagerProfile
 Intantiates a model instance connected to a User instance that allows for the user to add:
