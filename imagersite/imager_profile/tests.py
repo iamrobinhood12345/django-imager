@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from imager_profile.models import ImagerProfile
 import factory
 
+
 class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = User
@@ -13,7 +14,7 @@ class UserFactory(factory.django.DjangoModelFactory):
         lambda x: "{}@foo.com".format(x.username.replace(" ", ""))
     )
 
-    
+
 class ProfileTestCase(TestCase):
     """The Profile Model test runner."""
 
@@ -55,3 +56,18 @@ class ProfileTestCase(TestCase):
         the_user.is_active = False
         the_user.save()
         self.assertTrue(ImagerProfile.active.count() == User.objects.count() - 1)
+
+    def test_delete_user_deletes_profile(self):
+        """Deleting a user should delete a profile associated with it."""
+        user = self.users[0]
+        self.assertTrue(ImagerProfile.objects.count() == 20)
+        count = ImagerProfile.objects.count()
+        user.delete()
+        self.assertTrue(ImagerProfile.objects.count() == count - 1)
+
+    def test_delete_user_deletes_user(self):
+        """Deleting a user should delete the user."""
+        user = self.users[0]
+        count = User.objects.count()
+        user.delete()
+        self.assertTrue(User.objects.count() == count - 1)
