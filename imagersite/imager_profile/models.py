@@ -51,7 +51,24 @@ class ImagerProfile(models.Model):
     objects = models.Manager()
 
     def __str__(self):
-        return "Username: {} \n Camera: {} \n Photography Type: {} \n Employable?: {} \n Address: {} \n About Me: {} \n Website: {} \n Phone: {} \n Travel Radius: {}".format(self.user.username, self.type_camera, self.type_photography, self.employable, self.address, self.bio, self. personal_website, self.phone_number, self.travel_radius)
+        return """Username: {Username}
+                  Camera: {Camera}
+                  Photography Type: {PhotographyType}
+                  Employable?: {Employable}
+                  Address: {Address}
+                  About Me: {AboutMe}
+                  Website: {Website}
+                  Phone: {Phone}
+                  Travel Radius: {TravelRadius}""".format(
+            Username=self.user.username,
+            Camera=self.type_camera,
+            PhotographyType=self.type_photography,
+            Employable=self.employable,
+            Address=self.address,
+            AboutMe=self.bio,
+            Website=self. personal_website,
+            Phone=self.phone_number,
+            TravelRadius=self.travel_radius)
 
     @property
     def is_active(self):
