@@ -80,23 +80,18 @@ class ProfileFrontEndTests(TestCase):
         self.assertTrue(response.status_code == 200)
 
     def test_home_route_is_status_ok(self):
-        """."""
+        """Test a 200 response on the home route."""
         response = self.client.get("/")
         self.assertTrue(response.status_code == 200)
 
-    # def test_home_route_context_foo(self):
-    #     """Test this is if you're passing in a variable to the view."""
-    #     response = self.client.get("/")
-    #     self.assertTrue(response.context["foo"] == "bar")
-
     def test_home_route_uses_correct_templates(self):
-        """."""
+        """Test that the correct templates are used on the home page."""
         response = self.client.get("/")
         self.assertTemplateUsed(response, "home.html")
         self.assertTemplateUsed(response, "base.html")
 
     def test_login_route_is_status_ok(self):
-        """."""
+        """Test for a 200 status route at /login."""
         response = self.client.get("/login/")
         self.assertTrue(response.status_code == 200)
 
@@ -132,7 +127,7 @@ class ProfileFrontEndTests(TestCase):
         self.register_new_user()
         the_user = User.objects.first()
         self.assertFalse(the_user.is_active)
-    
+
     def test_registered_user_redirects(self):
         """Test registration redirects."""
         response = self.register_new_user(follow=False)

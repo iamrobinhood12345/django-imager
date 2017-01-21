@@ -81,6 +81,3 @@ def make_user_profile(sender, instance, **kwargs):
     if kwargs["created"]:
         new_profile = ImagerProfile(user=instance)
         new_profile.save()
-
-
-
