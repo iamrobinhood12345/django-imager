@@ -29,6 +29,7 @@ Instantiates a model instance connected to a single ImagerProfile and possibly b
         'Shared'
         'Public'
     -image to upload
+    -albums
     ```
 
 ##Album
@@ -43,7 +44,8 @@ Instantiates a model instance connected to a single ImagerProfile and many pictu
         'Private'
         'Shared'
         'Public'
-    cover 
+    -cover
+    -photos
     ```
 
 ##URLS
