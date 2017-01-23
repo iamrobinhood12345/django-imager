@@ -20,7 +20,7 @@ class Photo(models.Model):
     )
     albums = models.ManyToManyField(
         'Album',
-        related_name='photos',
+        related_name='photos_in_album',
         blank=True)
     image = models.ImageField(upload_to='images')
 
@@ -43,6 +43,6 @@ class Album(models.Model):
     )
     photos = models.ManyToManyField(
         "Photo",
-        related_name="albums",
+        related_name="albums_of_photos",
         symmetrical=False)
     cover = models.ImageField(upload_to='images')
