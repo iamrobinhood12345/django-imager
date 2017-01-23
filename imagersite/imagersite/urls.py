@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.contrib.auth.views import login, logout
+from django.views.static import serve
 from . import views
 
 urlpatterns = [
@@ -26,4 +27,8 @@ urlpatterns = [
     url(r'^logout/$', logout, name='logout'),
     # url(r'^accounts/profile', views.home_page, name="profile")
 ]
- 
+if settings.DEBUG:
+    urlpatterns += [
+        url(r'^media/(?P<path>.*)$', serve),
+        {'document.root': settings.MEDIA_ROOT,}),
+    ]
