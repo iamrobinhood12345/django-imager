@@ -16,6 +16,36 @@ Intantiates a model instance connected to a User instance that allows for the us
     -Travel Radius
     ```
 
+##Photo
+Instantiates a model instance connected to a single ImagerProfile and possibly but not necessarily connected to an album or many albums.
+    ```
+    -title
+    -description 
+    -date_uploaded 
+    -date_modified 
+    -date_published 
+    -published
+        'Private'
+        'Shared'
+        'Public'
+    -image to upload
+    ```
+
+##Album
+Instantiates a model instance connected to a single ImagerProfile and many pictures.
+    ```
+    -title 
+    -description 
+    -date_uploaded 
+    -date_modified 
+    -date_published 
+    -published 
+        'Private'
+        'Shared'
+        'Public'
+    cover 
+    ```
+
 ##URLS
     ```
     -"/admin" - Links to the admin login page
