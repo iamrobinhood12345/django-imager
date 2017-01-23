@@ -34,3 +34,25 @@ class AlbumFactory(factory.django.DjangoModelFactory):
     description = factory.Faker('text')
     published = random.choice(PUBLISHED)
     owner = factory.SubFactory(factory.Sequence(lambda n: "The Chosen {}".format(n)))
+
+
+class PhotoTestCase(TestCase):
+    """Testing the Photo model."""
+
+    def setUp(self):
+        self.photos = [PhotoFactory.create() for i in range(20)]
+
+    def test_profile_is_made_when_user_is_saved(self):
+        """Photo should be created."""
+        self.assertTrue(Photo.objects.count() == 20)
+
+
+class AlbumTestCase(TestCase):
+    """Testing the Photo model."""
+
+    def setUp(self):
+        self.albums = [AlbumFactory.create() for i in range(20)]
+
+    def test_profile_is_made_when_user_is_saved(self):
+        """Album should be created."""
+        self.assertTrue(Album.objects.count() == 20)
