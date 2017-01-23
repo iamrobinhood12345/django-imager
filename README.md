@@ -58,3 +58,4 @@ Instantiates a model instance connected to a single ImagerProfile and many pictu
         -"/registration_complete" - shows a valid completed registration page
     -"/login" - Links to the login page
     -"/logout" - Logs the user out
+    ```
