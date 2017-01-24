@@ -1,44 +1,64 @@
+"""Models for imager_images module. Contains Photo and Album model Classes."""
+
 from django.db import models
+from django.utils import timezone
 from imager_profile.models import ImagerProfile
 
 PUBLISHED = [
-    (1, 'Private'),
-    (2, 'Shared'),
-    (3, 'Public')
+    ('private', 'Private'),
+    ('shared', 'Shared'),
+    ('public', 'Public')
 ]
 
 
 class Photo(models.Model):
+    """The Photo class."""
+
     user_id = models.ForeignKey(ImagerProfile, related_name="photo")
-    title = models.CharField(max_length=50)
-    description = models.CharField(max_length=200)
+    title = models.CharField(max_length=100)
+    description = models.CharField(max_length=255)
     date_uploaded = models.DateField(auto_now_add=True)
     date_modified = models.DateField(auto_now=True)
-    date_published = models.DateTimeField()
-    published = models.SmallIntegerField(
-        choices=PUBLISHED,
-        default=1
+    date_published = models.DateTimeField(
+        default=timezone.now,
+        blank=True,
+        null=True
     )
-    albums = models.ManyToManyField(
-        'Album',
-        related_name='photos_in_album',
-        blank=True)
-    image = models.ImageField(upload_to='images')
+    published = models.CharField(
+        max_length=100000,
+        choices=PUBLISHED,
+        default='private'
+    )
+    image_file = models.ImageField(upload_to='images')
+
+    def __str__(self):
+        """Return title as string."""
+        return self.title
 
 
 class Album(models.Model):
+    """The Album class."""
+
     user_id = models.ForeignKey(ImagerProfile, related_name="album")
-    title = models.CharField(max_length=50)
-    description = models.CharField(max_length=200)
+    title = models.CharField(max_length=100)
+    description = models.CharField(max_length=255)
     date_uploaded = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
-    date_published = models.DateTimeField()
-    published = models.SmallIntegerField(
+    date_published = models.DateTimeField(
+        default=timezone.now,
+        blank=True,
+        null=True)
+    published = models.CharField(
+        max_length=100000,
         choices=PUBLISHED,
-        default=1
+        default='private'
     )
     photos = models.ManyToManyField(
         "Photo",
         related_name="albums_of_photos",
         symmetrical=False)
-    cover = models.ImageField(upload_to='images')
+    cover_image = models.ImageField(upload_to='images/cover_photos')
+
+    def __str__(self):
+        """Return title as string."""
+        return self.title

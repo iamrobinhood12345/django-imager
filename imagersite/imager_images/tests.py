@@ -1,10 +1,20 @@
 from django.test import TestCase, Client, RequestFactory
 from django.contrib.auth.models import User
+from imager_profile.models import ImagerProfile
 from imager_images.models import Album, Photo, PUBLISHED
 import factory
 import random
-
 # Create your tests here.
+
+
+class UserFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = User
+
+    username = factory.Sequence(lambda n: "The Chosen {}".format(n))
+    email = factory.LazyAttribute(
+        lambda x: "{}@foo.com".format(x.username.replace(" ", ""))
+    )
 
 
 class PhotoFactory(factory.django.DjangoModelFactory):
@@ -17,9 +27,9 @@ class PhotoFactory(factory.django.DjangoModelFactory):
 
     title = factory.Faker('sentence')
     description = factory.Faker('text')
-    published = random.choice(PUBLISHED)
-    owner = factory.SubFactory(factory.Sequence(lambda n: "The Chosen {}".format(n)))
-    img_file = factory.django.ImageField()
+    published = random.choice(PUBLISHED)[1]
+    image_file = factory.django.ImageField()
+    user_id = random.choice(ImagerProfile.objects.all())
 
 
 class AlbumFactory(factory.django.DjangoModelFactory):
@@ -32,17 +42,18 @@ class AlbumFactory(factory.django.DjangoModelFactory):
 
     title = factory.Faker('sentence')
     description = factory.Faker('text')
-    published = random.choice(PUBLISHED)
-    owner = factory.SubFactory(factory.Sequence(lambda n: "The Chosen {}".format(n)))
+    published = random.choice(PUBLISHED)[1]
+    cover_image = factory.django.ImageField()
 
 
 class PhotoTestCase(TestCase):
     """Testing the Photo model."""
 
     def setUp(self):
+        self.users = [UserFactory.create() for i in range(20)]
         self.photos = [PhotoFactory.create() for i in range(20)]
 
-    def test_profile_is_made_when_user_is_saved(self):
+    def test_photo_is_made(self):
         """Photo should be created."""
         self.assertTrue(Photo.objects.count() == 20)
 
@@ -51,8 +62,9 @@ class AlbumTestCase(TestCase):
     """Testing the Photo model."""
 
     def setUp(self):
+        self.users = [UserFactory.create() for i in range(20)]
         self.albums = [AlbumFactory.create() for i in range(20)]
 
-    def test_profile_is_made_when_user_is_saved(self):
+    def test_album_is_made(self):
         """Album should be created."""
         self.assertTrue(Album.objects.count() == 20)
