@@ -99,5 +99,8 @@ ENV/
 
 # Ignore the files in the Media directory, but not the directory itself
 imagersite/MEDIA/*
+!imagersite/MEDIA/default_image.png
 !imagersite/MEDIA/.gitkeep
-imagersite/images/*
+imagersite/MEDIA/images/*
+!imagersite/MEDIA/images/.gitkeep
+!imagersite/static/images/image_1.jpg
