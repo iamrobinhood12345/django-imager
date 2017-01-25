@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from imager_profile.models import ImagerProfile
 import factory
 
+
 class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = User
@@ -56,6 +57,21 @@ class ProfileTestCase(TestCase):
         the_user.save()
         self.assertTrue(ImagerProfile.active.count() == User.objects.count() - 1)
 
+    def test_delete_user_deletes_profile(self):
+        """Deleting a user should delete a profile associated with it."""
+        user = self.users[0]
+        self.assertTrue(ImagerProfile.objects.count() == 20)
+        count = ImagerProfile.objects.count()
+        user.delete()
+        self.assertTrue(ImagerProfile.objects.count() == count - 1)
+
+    def test_delete_user_deletes_user(self):
+        """Deleting a user should delete the user."""
+        user = self.users[0]
+        count = User.objects.count()
+        user.delete()
+        self.assertTrue(User.objects.count() == count - 1)
+
 
 class ProfileFrontEndTests(TestCase):
     """Tests for the imager profile front end."""
@@ -80,23 +96,18 @@ class ProfileFrontEndTests(TestCase):
         self.assertTrue(response.status_code == 200)
 
     def test_home_route_is_status_ok(self):
-        """."""
+        """Test a 200 response on the home route."""
         response = self.client.get("/")
         self.assertTrue(response.status_code == 200)
 
-    # def test_home_route_context_foo(self):
-    #     """Test this is if you're passing in a variable to the view."""
-    #     response = self.client.get("/")
-    #     self.assertTrue(response.context["foo"] == "bar")
-
     def test_home_route_uses_correct_templates(self):
-        """."""
+        """Test that the correct templates are used on the home page."""
         response = self.client.get("/")
         self.assertTemplateUsed(response, "home.html")
         self.assertTemplateUsed(response, "base.html")
 
     def test_login_route_is_status_ok(self):
-        """."""
+        """Test for a 200 status route at /login."""
         response = self.client.get("/login/")
         self.assertTrue(response.status_code == 200)
 
@@ -132,7 +143,7 @@ class ProfileFrontEndTests(TestCase):
         self.register_new_user()
         the_user = User.objects.first()
         self.assertFalse(the_user.is_active)
-    
+
     def test_registered_user_redirects(self):
         """Test registration redirects."""
         response = self.register_new_user(follow=False)
