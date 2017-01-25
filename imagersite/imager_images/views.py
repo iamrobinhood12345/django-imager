@@ -2,12 +2,13 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from datetime import datetime
 from .forms import PhotoForm
+from .models import Photo
 
 def post_photo(request):
     form = PhotoForm(request.POST, request.FILES)
     if form.is_valid():
         photo = form.save(commit=False)
-        photo.user=request.user
+        photo.user = request.user
         photo.save()
         # form.save(commit = True)
         #below code was before refactoring to use a meta class in forms
@@ -17,10 +18,12 @@ def post_photo(request):
             #         )
             # photo.save()
     #after adding a photo, return to Index or Home
-    return HttpResponseRedirect('/')
+    # import pdb; pdb.set_trace()
+    return render(request, 'photos.html', {'form': form})
+
 
 def photos(request):
     photos = Photo.objects.all()
     form = PhotoForm()
     return render(request, 'photos.html',
-                    {'photos': photos, 'form': form})
+                  {'photos': photos, 'form': form})

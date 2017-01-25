@@ -26,6 +26,7 @@ urlpatterns = [
     url(r'^login/$', login, name='login'),
     url(r'^logout/$', logout, name='logout'),
     url(r'^user/', include('imager_profile.urls')),
+    url(r'^images/', include('imager_images.urls')),
 ]
 if settings.DEBUG:
     urlpatterns += [

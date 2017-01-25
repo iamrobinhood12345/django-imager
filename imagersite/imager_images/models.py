@@ -32,7 +32,7 @@ class Photo(models.Model):
         choices=PUBLISHED,
         default='private'
     )
-    image_file = models.ImageField(upload_to='MEDIA/images')
+    image_file = models.ImageField(upload_to='images')
 
     def __str__(self):
         """Return title as string."""
@@ -65,7 +65,7 @@ class Album(models.Model):
         related_name="albums_of_photos",
         symmetrical=False)
 
-    cover_image = models.ImageField(upload_to='MEDIA/images/cover_photos')
+    cover_image = models.ImageField(upload_to='images/cover_photos')
 
     def __str__(self):
         """Return title as string."""
