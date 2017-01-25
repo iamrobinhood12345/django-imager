@@ -17,7 +17,7 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.contrib.auth.views import login, logout
 from django.views.static import serve
-from . import views
+from imagersite import views, settings
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -25,10 +25,10 @@ urlpatterns = [
     url(r'^registration/', include('registration.backends.hmac.urls')),
     url(r'^login/$', login, name='login'),
     url(r'^logout/$', logout, name='logout'),
-    # url(r'^accounts/profile', views.home_page, name="profile")
+    url(r'^user/', include('imager_profile.urls')),
 ]
 if settings.DEBUG:
     urlpatterns += [
-        url(r'^media/(?P<path>.*)$', serve),
-        {'document.root': settings.MEDIA_ROOT,}),
+        url(r'^media/(?P<path>.*)$', serve,
+        {'document.root': settings.MEDIA_ROOT}),
     ]
