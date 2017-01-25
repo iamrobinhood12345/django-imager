@@ -14,7 +14,10 @@ PUBLISHED = [
 class Photo(models.Model):
     """The Photo class."""
 
-    user_id = models.ForeignKey(ImagerProfile, related_name="photo")
+    user_id = models.ForeignKey(ImagerProfile,
+                                related_name="photo",
+                                blank=True,
+                                null=True)
     title = models.CharField(max_length=100)
     description = models.CharField(max_length=255)
     date_uploaded = models.DateField(auto_now_add=True)
@@ -29,7 +32,7 @@ class Photo(models.Model):
         choices=PUBLISHED,
         default='private'
     )
-    image_file = models.ImageField(upload_to='images')
+    image_file = models.ImageField(upload_to='MEDIA/images')
 
     def __str__(self):
         """Return title as string."""
@@ -39,7 +42,10 @@ class Photo(models.Model):
 class Album(models.Model):
     """The Album class."""
 
-    user_id = models.ForeignKey(ImagerProfile, related_name="album")
+    user_id = models.ForeignKey(ImagerProfile,
+                                related_name="album",
+                                blank=True,
+                                null=True)
     title = models.CharField(max_length=100)
     description = models.CharField(max_length=255)
     date_uploaded = models.DateTimeField(auto_now_add=True)
@@ -53,11 +59,13 @@ class Album(models.Model):
         choices=PUBLISHED,
         default='private'
     )
-    photos = models.ManyToManyField(
+
+    images = models.ManyToManyField(
         "Photo",
         related_name="albums_of_photos",
         symmetrical=False)
-    cover_image = models.ImageField(upload_to='images/cover_photos')
+
+    cover_image = models.ImageField(upload_to='MEDIA/images/cover_photos')
 
     def __str__(self):
         """Return title as string."""

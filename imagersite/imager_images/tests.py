@@ -63,6 +63,7 @@ class AlbumTestCase(TestCase):
 
     def setUp(self):
         self.users = [UserFactory.create() for i in range(20)]
+        self.photos = [PhotoFactory.create() for i in range(20)]
         self.albums = [AlbumFactory.create() for i in range(20)]
 
     def test_album_is_made(self):
