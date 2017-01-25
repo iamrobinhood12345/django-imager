@@ -25,8 +25,9 @@ urlpatterns = [
     url(r'^registration/', include('registration.backends.hmac.urls')),
     url(r'^login/$', login, name='login'),
     url(r'^logout/$', logout, name='logout'),
-    url(r'^user/', include('imager_profile.urls')),
+    # url(r'^user/', include('imager_profile.urls')),
     url(r'^images/', include('imager_images.urls')),
+    url(r'^profile/', include("imager_profile.urls")),
 ]
 if settings.DEBUG:
     urlpatterns += [

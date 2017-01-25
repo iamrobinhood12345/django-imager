@@ -1,10 +1,16 @@
 {% extends "base.html" %}
 
+{% block title %}
+
+<title>Your profile</title>
+
+{% endblock %}
+
 
 {% block content %}
 
 
-    <header class="intro">
+    <header class="intro" style="background-image: url({{ static_background }})">
         <div class="intro-body">
             <div class="container">
                 <div class="row">
@@ -13,7 +19,6 @@
                         <br>
                         This is {{ profile.user.username }}'s Profile</h3>
                         {% if profile %}
-                        <p class="intro-text">Here's some stuff about it</p>
                         <ul>
                             <li>Username: {{profile.user.username}}</li>
 
@@ -26,9 +31,9 @@
 
                             <li>bio: {{ profile.bio }}</li>
 
-                            <li>website: {{ profile.personal_website }}</li>
+                            <li>website: <a href="{{ profile.personal_website }}">{{ profile.personal_website }}</a></li>
 
-                            <li>hireable: {{ profile.employable }}</li>
+                            <li>employable: {{ profile.employable }}</li>
 
                             <li>travel radius: {{ profile.travel_radius }}</li>
 
