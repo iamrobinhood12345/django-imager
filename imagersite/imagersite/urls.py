@@ -14,9 +14,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import include, url
+from django.conf import settings
 from django.contrib import admin
 from django.contrib.auth.views import login, logout
 from django.views.static import serve
+from django.conf.urls.static import static
 from imagersite import views, settings
 
 urlpatterns = [
@@ -30,7 +32,8 @@ urlpatterns = [
     url(r'^profile/', include("imager_profile.urls")),
 ]
 if settings.DEBUG:
-    urlpatterns += [
-        url(r'^media/(?P<path>.*)$', serve,
-        {'document.root': settings.MEDIA_ROOT}),
-    ]
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    # urlpatterns += [
+    #     url(r'^media/(?P<path>.*)$', serve,
+    #     {'document.root': settings.MEDIA_ROOT}),
+    # ]
