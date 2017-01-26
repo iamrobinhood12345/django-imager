@@ -132,7 +132,7 @@ STATIC_URL = '/imagersite/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'MEDIA')
 MEDIA_URL = '/MEDIA/'
 
-MEDIA_URL = '/media/'
+MEDIA_URL = '/MEDIA/'
 
 
 #DJANGO-registration

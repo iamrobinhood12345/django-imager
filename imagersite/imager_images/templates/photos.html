@@ -1,50 +1,28 @@
 {% extends "base.html" %}
 
+{% block title %}
+
+<title>Public Photos</title>
+
+{% endblock %}
 
 {% block content %}
-
-
-    <header class="intro">
-        <div class="intro-body">
             <div class="container">
-                <div class="row">
-                    <div class="col-md-8 col-md-offset-2">
-                        <h3 class="brand-heading">
-                        <br>
-                        This is {{ profile.user.username }}'s Profile</h3>
-                        {% if profile %}
-                        <p class="intro-text">Here's some stuff about it</p>
-                        <ul>
-                            <li>Username: {{profile.user.username}}</li>
+                <h3 class="brand-heading">
+                <br>
+                Photos. Photos Everywhere.</h3>
+                <p >Photos.</p>
 
-                            <li>number of public images: {{ public_images }}</li>
-
-                            {% if user == profile.user %}
-                            <li>number of private images: {{ private_images }}</li>
-                            {% endif %}
-                            <li>address: {{ profile.address }}</li>
-
-                            <li>bio: {{ profile.bio }}</li>
-
-                            <li>website: {{ profile.personal_website }}</li>
-
-                            <li>hireable: {{ profile.employable }}</li>
-
-                            <li>travel radius: {{ profile.travel_radius }}</li>
-
-                            <li>phone number: {{ profile.phone_number }}</li>
-
-                            <li>camera type: {{ profile.type_camera }}</li>
-
-                            <li>type of photography: {{ profile.type_photography }}</li>
-
-                        </ul> 
-                        {% else %}
-                        <h3>{{ error }}</h3>
-                        {% endif %}
-                </div>
+                <h3> Public Photos: </h3>
+                <ul>
+                {% for photo in photos %}
+                <li>
+                <a href="{{ photo.image_file.url }}">
+                <img src="{{ photo.image_file.url }}" width="100px" height="100px"></a>
+                <p>{{ photo.description }}</p>
+                </li>
+                {% endfor %}
+                </ul>
             </div>
-        </div>
-    </header>
 
 {% endblock %}

@@ -10,7 +10,6 @@ def profile_view(request):
         public_images = request.user.profile.photo.filter(published='public').count()
         private_images = request.user.profile.photo.filter(published='private').count()
         profile = request.user.profile
-        # import pdb; pdb.set_trace()
         return render(request, "imager_profile/profile.html",
                                {'profile': profile,
                                 'public_images': public_images,

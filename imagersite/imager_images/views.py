@@ -47,4 +47,4 @@ class PhotoView(ListView):
         photos = Photo.objects.all()
         form = PhotoForm()
         return render(request, 'photos.html',
-                        {'photos': photos, 'form': form})
+                      {'photos': photos, 'form': form})
