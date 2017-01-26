@@ -4,6 +4,7 @@ from django.views.generic import ListView, TemplateView
 from datetime import datetime
 from .forms import PhotoForm
 from imager_profile.models import ImagerProfile
+from .models import Photo
 
 
 
@@ -39,8 +40,8 @@ class PhotoView(ListView):
             #         description = form.cleaned_data['description'],
             #         )
             # photo.save()
-    #after adding a photo, return to Index or Home
-        return HttpResponseRedirect('/')
+        #after adding a photo, return to Index or Home
+        return render(request, 'photos.html', {'form': form})
 
     def get(self, request):
         photos = Photo.objects.all()
