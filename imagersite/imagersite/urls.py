@@ -28,8 +28,8 @@ urlpatterns = [
     url(r'^registration/', include('registration.backends.hmac.urls')),
     url(r'^login/$', login, name='login'),
     url(r'^logout/$', logout, name='logout'),
-    url(r'^images/', include('imager_images.urls')),
-    url(r'^profile/', include("imager_profile.urls")),
+    url(r'^images/', include('imager_images.urls'), name='photo'),
+    url(r'^profile/', include("imager_profile.urls"), name='profile'),
     url(r'^library/', include('imager_images.urls'), name='library'),
 ]
 

@@ -1,9 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load thumbnail %}
 {% block title %}{{profile.user}}'s Library{% endblock %}
 
-{% block body %}
 {% block content %}
     <div class="banner">
         <div class="container">
@@ -21,6 +19,9 @@
                 <div class='col-md-4'>
                     <img src="{{ album.cover_image.url }}"/>
                 </div>
+                <p>
+                    {{ album.description }}
+                </p>
                 {% endfor %}
             </div>
         </div>

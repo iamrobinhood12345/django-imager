@@ -10,7 +10,7 @@ from imager_images.models import Photo, Album
 class LibraryView(ListView):
     """"Return the libraryView inheriting from ListView."""
 
-    template_name = 'imager_images/templates/library.html'
+    template_name = 'library.html'
 
     def get_context_data(self):
         """Get albums and photos and return them."""
@@ -31,7 +31,7 @@ class PhotoView(ListView):
         form = PhotoForm(request.POST, request.FILES)
         if form.is_valid():
             photo = form.save(commit=False)
-            photo.user=request.user
+            photo.user = request.user
             photo.save()
         # form.save(commit = True)
         #below code was before refactoring to use a meta class in forms
