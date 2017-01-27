@@ -23,7 +23,6 @@ class Photo(models.Model):
     date_uploaded = models.DateField(auto_now_add=True)
     date_modified = models.DateField(auto_now=True)
     date_published = models.DateTimeField(
-        default=timezone.now,
         blank=True,
         null=True
     )
@@ -51,7 +50,6 @@ class Album(models.Model):
     date_uploaded = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
     date_published = models.DateTimeField(
-        default=timezone.now,
         blank=True,
         null=True)
     published = models.CharField(

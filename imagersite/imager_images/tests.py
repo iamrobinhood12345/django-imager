@@ -142,7 +142,7 @@ class ImageTestCase(TestCase):
     def test_album_has_no_image(self):
         """Test that an album has no image before assignemnt."""
         album1 = Album.objects.first()
-        self.assertTrue(album1.photo.count() == 0)
+        self.assertTrue(album1.images.count() == 0)
 
     def test_album_has_image(self):
         """Test that an album has an image after assignemnt."""
@@ -156,7 +156,6 @@ class ImageTestCase(TestCase):
         image1 = Photo.objects.all()[0]
         image2 = Photo.objects.all()[1]
         album1 = Album.objects.first()
-        # import pdb; pdb.set_trace()
         image1.albums_of_photos.add(album1)
         image2.albums_of_photos.add(album1)
         image1.save()
@@ -172,7 +171,7 @@ class ImageTestCase(TestCase):
         image2.albums_of_photos.add(album1)
         image1.save()
         image2.save()
-        self.assertTrue(album1.photo.count() == 2)
+        self.assertTrue(album1.images.count() == 2)
 
     def test_image_has_two_albums(self):
         """Test that an image has two albums."""
@@ -242,7 +241,7 @@ class ImageTestCase(TestCase):
         album.owner = user1.profile
         album.save()
         # import pdb; pdb.set_trace()
-        self.assertTrue(user1.profile.albums_of_photos.count() == 1)
+        self.assertTrue(user1.profile.album.count() == 1)
 
     def test_two_albums_have_owner(self):
         """Test two albums have the same owner."""
@@ -265,7 +264,7 @@ class ImageTestCase(TestCase):
         album2.owner = user1.profile
         album1.save()
         album2.save()
-        self.assertTrue(user1.profile.albums_of_photos.count() == 2)
+        self.assertTrue(user1.profile.album.count() == 2)
 
     def test_logged_in_user_has_library(self):
         """A logged in user has a library."""
@@ -279,8 +278,9 @@ class ImageTestCase(TestCase):
         user = UserFactory.create()
         album1 = Album.objects.first()
         album2 = Album.objects.all()[1]
-        user.profile.albums_of_photos.add(album1)
-        user.profile.albums_of_photos.add(album2)
+        # import pdb; pdb.set_trace()
+        user.profile.album.add(album1)
+        user.profile.album.add(album2)
         user.save()
         self.client.force_login(user)
 
