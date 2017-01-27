@@ -278,7 +278,6 @@ class ImageTestCase(TestCase):
         user = UserFactory.create()
         album1 = Album.objects.first()
         album2 = Album.objects.all()[1]
-        # import pdb; pdb.set_trace()
         user.profile.album.add(album1)
         user.profile.album.add(album2)
         user.save()

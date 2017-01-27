@@ -13,13 +13,14 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import include, url
+from django.conf.urls import url, include
 from django.conf import settings
 from django.contrib import admin
 from django.contrib.auth.views import login, logout
 from django.views.static import serve
 from django.conf.urls.static import static
 from imagersite import views, settings
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -29,6 +30,7 @@ urlpatterns = [
     url(r'^logout/$', logout, name='logout'),
     url(r'^images/', include('imager_images.urls')),
     url(r'^profile/', include("imager_profile.urls")),
+    url(r'^library/', include('imager_images.urls'), name='library'),
 ]
 
 if settings.DEBUG:
