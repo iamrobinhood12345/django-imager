@@ -6,7 +6,7 @@ from django.conf import settings
 
 def home_page(request, *args, **kwargs):
     photos = Photo.objects.all()
-    idx = randint(0,photos.count() -1)
+    idx = randint(0, photos.count() - 1)
     random_picture = photos[idx]
     img_url = random_picture.image_file.url
     context = {'img_url': img_url}

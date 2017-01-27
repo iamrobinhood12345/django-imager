@@ -16,8 +16,8 @@ class LibraryView(ListView):
     def get_context_data(self):
         """Get albums and photos and return them."""
         profile = ImagerProfile.active.get(user__username=self.request.user.username)
-        photos = profile.photos.all()
-        albums = profile.albums.all()
+        photos = profile.photo.all()
+        albums = profile.album.all()
         username = self.request.user.username
         return {'photos': photos, 'profile': profile, 'albums': albums, 'username': username}
 

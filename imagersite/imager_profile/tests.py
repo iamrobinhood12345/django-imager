@@ -3,6 +3,8 @@ from django.test import TestCase, Client, RequestFactory
 from django.contrib.auth.models import User
 from imager_profile.models import ImagerProfile
 import factory
+from imager_images.models import Photo, Album
+from django.core.files.uploadedfile import SimpleUploadedFile
 
 
 class UserFactory(factory.django.DjangoModelFactory):
@@ -13,6 +15,21 @@ class UserFactory(factory.django.DjangoModelFactory):
     email = factory.LazyAttribute(
         lambda x: "{}@foo.com".format(x.username.replace(" ", ""))
     )
+
+
+class ImageFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = Photo
+    title = factory.Sequence(lambda n: "Image {}".format(n))
+    image_file = SimpleUploadedFile(name='image_1.jpg', content=open('imagersite/static/images/image_1.jpg', 'rb').read(), content_type='image/jpeg')
+
+
+class AlbumFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = Album
+    title = factory.Sequence(lambda n: "Album {}".format(n))
+    cover_image = SimpleUploadedFile(name='image_1.jpg', content=open('imagersite/static/images/image_1.jpg', 'rb').read(), content_type='image/jpeg')
+    description = "Calvin and hobbes album"
 
 
 class ProfileTestCase(TestCase):
@@ -79,6 +96,8 @@ class ProfileFrontEndTests(TestCase):
     def setUp(self):
         self.client = Client()
         self.request = RequestFactory()
+        self.photos = [ImageFactory.create() for i in range(10)]
+        self.albums = [AlbumFactory.create() for i in range(10)]
 
     def register_new_user(self, follow=True):
         return self.client.post("/registration/register/", {

@@ -14,10 +14,10 @@ PUBLISHED = [
 class Photo(models.Model):
     """The Photo class."""
 
-    user_id = models.ForeignKey(ImagerProfile,
-                                related_name="photo",
-                                blank=True,
-                                null=True)
+    owner = models.ForeignKey(ImagerProfile,
+                              related_name="photo",
+                              blank=True,
+                              null=True)
     title = models.CharField(max_length=100)
     description = models.CharField(max_length=255)
     date_uploaded = models.DateField(auto_now_add=True)
@@ -28,7 +28,7 @@ class Photo(models.Model):
         null=True
     )
     published = models.CharField(
-        max_length=100000,
+        max_length=15,
         choices=PUBLISHED,
         default='private'
     )
@@ -42,10 +42,10 @@ class Photo(models.Model):
 class Album(models.Model):
     """The Album class."""
 
-    user_id = models.ForeignKey(ImagerProfile,
-                                related_name="album",
-                                blank=True,
-                                null=True)
+    owner = models.ForeignKey(ImagerProfile,
+                              related_name="album",
+                              blank=True,
+                              null=True)
     title = models.CharField(max_length=100)
     description = models.CharField(max_length=255)
     date_uploaded = models.DateTimeField(auto_now_add=True)
@@ -55,7 +55,7 @@ class Album(models.Model):
         blank=True,
         null=True)
     published = models.CharField(
-        max_length=100000,
+        max_length=15,
         choices=PUBLISHED,
         default='private'
     )

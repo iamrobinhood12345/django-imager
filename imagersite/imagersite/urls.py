@@ -30,9 +30,8 @@ urlpatterns = [
     url(r'^images/', include('imager_images.urls')),
     url(r'^profile/', include("imager_profile.urls")),
 ]
+
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    # urlpatterns += [
-    #     url(r'^media/(?P<path>.*)$', serve,
-    #     {'document.root': settings.MEDIA_ROOT}),
-    # ]
+    urlpatterns += static(
+        settings.MEDIA_URL,
+        document_root=settings.MEDIA_ROOT)
