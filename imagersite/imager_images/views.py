@@ -4,7 +4,7 @@ from django.views.generic import ListView, TemplateView
 from datetime import datetime
 from .forms import PhotoForm
 from imager_profile.models import ImagerProfile
-from .models import Photo
+from imager_images.models import Photo, Album
 
 
 
@@ -48,3 +48,18 @@ class PhotoView(ListView):
         form = PhotoForm()
         return render(request, 'photos.html',
                         {'photos': photos, 'form': form})
+
+class AlbumView(ListView):
+    """Return the AlbumView inheriting from ListView."""
+    # template_name = 'imager_images/templates/album.html'
+    model = Album
+
+    def get_context_data(self):
+        """Get albums and return them."""
+        album = Album.objects.get(id=self.kwargs['albumid'])
+        # album = Album.objects.get()
+        if album.published == 'public' or album.owner == self.request.user.user_id:
+            photos = album.images.all
+            return {'album': album, 'photos': photos}
+        else:
+            return HttpResponseForbidden()

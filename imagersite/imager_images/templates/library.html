@@ -1,39 +1,45 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load thumbnail %}
-
 {% block title %}{{profile.user}}'s Library{% endblock %}
 
-
 {% block body %}
-<ul>
-    {% if user.is_authenticated %}
-        <h1>{{ user.first_name }}'s Albums</h1>
-        {% for album in albums %}
-            {% if album.cover_photo %}
-                <a href="{% url 'album' album.id %}"><li><img src="{{ album.cover_photo.url }}" height = 100, width= 100/></li></a>
-            {% else %}
-                <a href="{% url 'album' album.id %}"><li><img src="{% static 'default_image.png' %}"height = 100, width= 100/></li></a>
-            {% endif %}
-        {% endfor %}
-        <hr><hr><hr><hr><hr>
-        <h1>{{ user.first_name }}'s Photos</h1>
-        <hr><hr><hr><hr><hr>
-        {% for photo in photos %}
-            <li><img src="{{ photo.photo.url }}" height = 100, width= 100/></li>
-        {% endfor %}
-    {% endif %}
-</ul>
+{% block content %}
+    <div class="banner">
+        <div class="container">
+            <h3>
+                The Bottom Line.
+            </h3>
+            <p>
+                We deliver the images you create to the world.
+            </p>
+            <p>
+                Your Albums
+            </p>
+            <div class='Row'>
+                {% for album in albums %}
+                <div class='col-md-4'>
+                    <img src="{{ album.cover_image.url }}"/>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="cards">
+      <div class="container">
+        <h4>
+          Your SourceShots
+        </h4>
+        <div class='Row'>
+          <div class='col-md-4'>
+            </div>
+          <div class='col-md-4'>
+            <img src="{{ img_url }}"/>
+            <img src="{% static 'images/image_1.jpg' %}" alt="My image"/>
+            </div>
+          <div class='col-md-4'>
+             </div>
+        </div>
+      </div>
+    </div>
 {% endblock %}
-
-    {% if True %}
-    {% thumbnail album.cover_photo.url "100x100" crop="center" as im %}
-        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
-    {% endthumbnail %}
-    {% else %}
-        {% with STATIC_URL|add:"/default_image.png" as path %}
-        {% thumbnail path "100x100" crop="center" as im %}
-        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
-    {% endthumbnail %}
-    {% endwith %}
-    {%endif%}
