@@ -19,6 +19,6 @@ class HomePageView(TemplateView):
             random_picture = photos[idx]
             img_url = random_picture.image_file.url
         else:
-            img_url = settings.MEDIA_URL + 'football.jpg'
+            img_url = settings.STATIC_URL + 'images/football.jpg'
         context = {'img_url': img_url}
         return context
