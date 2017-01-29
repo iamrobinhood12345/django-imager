@@ -1,8 +1,11 @@
 from django.conf.urls import url
-from imager_profile.views import profile_view, other_user_profile_view
+from imager_profile.views import (
+    ProfileView,
+    OtherUserProfileView
+)
 
 
 urlpatterns = [
-    url(r'^$', profile_view, name="profile"),
-    url(r'^(?P<username>\w+)/$', other_user_profile_view, name="user_profile")
+    url(r'^$', ProfileView.as_view(), name="profile"),
+    url(r'^(?P<username>\w+)/$', OtherUserProfileView.as_view(), name="user_profile")
 ]

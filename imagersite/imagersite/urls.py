@@ -19,12 +19,13 @@ from django.contrib import admin
 from django.contrib.auth.views import login, logout
 from django.views.static import serve
 from django.conf.urls.static import static
-from imagersite import views, settings
+from imagersite import settings
+from imagersite.views import HomePageView
 
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', views.home_page, name="home"),
+    url(r'^$', HomePageView.as_view(), name="home"),
     url(r'^registration/', include('registration.backends.hmac.urls')),
     url(r'^login/$', login, name='login'),
     url(r'^logout/$', logout, name='logout'),
