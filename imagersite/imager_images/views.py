@@ -51,23 +51,25 @@ class PhotoView(ListView):
 
 
 class SinglePhotoView(ListView):
+    """View a single photo on a page."""
+    model = Photo
+    template_name = 'single_photo.html'
 
-    def get(self, request):
-        import pdb; pdb.set_trace()
-        photo = Photo.objects.get(id=self.kwargs['photoid'])
-        return render(request, 'photos.html',
-                      {'photos': photo})
+    def get_context_data(self):
+        photo = Photo.objects.filter(id=int(self.kwargs['photoid'])).first()
+        # import pdb; pdb.set_trace()
+        return {'photo': photo}
 
 
 class AlbumView(ListView):
     """Return the AlbumView inheriting from ListView."""
     # template_name = 'imager_images/templates/album.html'
     model = Album
+    template_name = 'library.html'
 
     def get_context_data(self):
         """Get albums and return them."""
         album = Album.objects.get(id=self.kwargs['albumid'])
-        # album = Album.objects.get()
         if album.published == 'public' or album.owner == self.request.user.user_id:
             photos = album.images.all
             return {'album': album, 'photos': photos}
