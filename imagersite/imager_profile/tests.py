@@ -108,10 +108,11 @@ class ProfileFrontEndTests(TestCase):
         }, follow=follow)
 
     def test_home_view_is_status_ok(self):
-        """Test a get request on the home_page view."""
-        from imagersite.views import home_page
+        """Test a get request on the HomePageView."""
+        from imagersite.views import HomePageView
         req = self.request.get("/potato")
-        response = home_page(req)
+        view = HomePageView.as_view()
+        response = view(req)
         self.assertTrue(response.status_code == 200)
 
     def test_home_route_is_status_ok(self):
