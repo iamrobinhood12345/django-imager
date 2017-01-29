@@ -50,6 +50,15 @@ class PhotoView(ListView):
                       {'photos': photos, 'form': form})
 
 
+class SinglePhotoView(ListView):
+
+    def get(self, request):
+        import pdb; pdb.set_trace()
+        photo = Photo.objects.get(id=self.kwargs['photoid'])
+        return render(request, 'photos.html',
+                      {'photos': photo})
+
+
 class AlbumView(ListView):
     """Return the AlbumView inheriting from ListView."""
     # template_name = 'imager_images/templates/album.html'
