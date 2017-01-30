@@ -53,4 +53,3 @@ class EditPhotoForm(forms.ModelForm):
         fields = ['title', 'description', 'image_file']
         title = forms.CharField(label='title', max_length=50)
         description = forms.CharField(label='description', max_length=200)
-

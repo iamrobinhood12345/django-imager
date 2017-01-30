@@ -30,22 +30,6 @@ class LibraryView(ListView):
 
 class PhotoView(ListView):
 
-    def post(self, request):
-        form = PhotoForm(request.POST, request.FILES)
-        if form.is_valid():
-            photo = form.save(commit=False)
-            photo.user = request.user
-            photo.save()
-        # form.save(commit = True)
-        #below code was before refactoring to use a meta class in forms
-            # photo = Photo(
-            #         name = form.cleaned_data['title'],
-            #         description = form.cleaned_data['description'],
-            #         )
-            # photo.save()
-        #after adding a photo, return to Index or Home
-        return render(request, 'photos.html', {'form': form})
-
     def get(self, request):
         photos = Photo.objects.all()
         form = PhotoForm()
