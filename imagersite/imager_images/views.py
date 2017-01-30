@@ -129,13 +129,13 @@ class EditSingleAlbumView(LoginRequiredMixin, UpdateView):
 
     login_required = True
     success_url = reverse_lazy('library')
-    template_name = 'imager_images/edit_album.html'
+    template_name = 'edit_album.html'
     model = Album
     form_class = EditAlbumForm
 
     def get_form(self):
         """Retrieve form and customize some fields."""
-        form = super(EditAlbumView, self).get_form()
+        form = super(EditSingleAlbumView, self).get_form()
         form.fields['cover_photo'].queryset = self.request.user.profile.photos.all()
         form.fields['photos'].queryset = self.request.user.profile.photos.all()
         return form
@@ -151,7 +151,7 @@ class EditSingleAlbumView(LoginRequiredMixin, UpdateView):
         """If user owns album let them do stuff."""
         if not self.user_is_user(request):
             return HttpResponseForbidden()
-        return super(EditAlbumView, self).dispatch(
+        return super(EditSingleAlbumView, self).dispatch(
             request, *args, **kwargs)
 
 
@@ -160,7 +160,7 @@ class EditSinglePhotoView(LoginRequiredMixin, UpdateView):
 
     login_required = True
     success_url = reverse_lazy('library')
-    template_name = 'imager_images/edit_photo.html'
+    template_name = 'edit_photo.html'
     model = Photo
     form_class = EditPhotoForm
     form_class.Meta.exclude.append('photo')
@@ -176,5 +176,5 @@ class EditSinglePhotoView(LoginRequiredMixin, UpdateView):
         """If user doesn't own album, raise 403, else continue."""
         if not self.user_is_user(request):
             return HttpResponseForbidden()
-        return super(EditPhotoView, self).dispatch(
+        return super(EditSinglePhotoView, self).dispatch(
             request, *args, **kwargs)

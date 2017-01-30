@@ -18,7 +18,7 @@ class AlbumForm(forms.ModelForm):
 
 
 class EditAlbumForm(forms.ModelForm):
-    """Form to add new album."""
+    """Form to edit album."""
 
     class Meta:
         """Define the model and exclude fields."""
@@ -31,10 +31,13 @@ class EditAlbumForm(forms.ModelForm):
             'date_published',
             'owner'
         ]
+        fields = ['title', 'description', 'cover_image']
+        title = forms.CharField(label='title', max_length=50)
+        description = forms.CharField(label='description', max_length=200)
 
 
 class EditPhotoForm(forms.ModelForm):
-    """Form to add new album."""
+    """Form to edit photos."""
 
     class Meta:
         """Define what should be in the form."""
@@ -47,3 +50,7 @@ class EditPhotoForm(forms.ModelForm):
             'date_published',
             'photo'
         ]
+        fields = ['title', 'description', 'image_file']
+        title = forms.CharField(label='title', max_length=50)
+        description = forms.CharField(label='description', max_length=200)
+
