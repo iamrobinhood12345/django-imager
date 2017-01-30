@@ -6,6 +6,7 @@ from imager_images.views import (
     AlbumView,
     SinglePhotoView,
     SingleAlbumView,
+    AddPhotoView,
 )
 
 urlpatterns = [
@@ -15,4 +16,6 @@ urlpatterns = [
     url(r'^photos/(?P<photoid>\d+)/$', SinglePhotoView.as_view(), name='photo'),
     url(r'^albums$', AlbumView.as_view(), name='album'),
     url(r'^albums/(?P<albumid>\d+)/$', SingleAlbumView.as_view(), name='album'),
+    url(r'^photos/add/$', AddPhotoView.as_view(), name='add_photo'),
+    url(r'^albums/add/$', AddPhotoView.as_view(), name='add_album')
 ]

@@ -1,10 +1,13 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseForbidden
-from django.views.generic import ListView, TemplateView
+from django.views.generic import ListView, TemplateView, CreateView
 from datetime import datetime
-from .forms import PhotoForm
+from .forms import PhotoForm, AlbumForm
 from imager_profile.models import ImagerProfile
 from imager_images.models import Photo, Album
+
+from django.shortcuts import redirect
+from django.utils import timezone
 
 
 class LibraryView(ListView):
@@ -73,7 +76,6 @@ class AlbumView(ListView):
         return {'albums': albums}
 
 
-
 class SingleAlbumView(ListView):
     """Return the AlbumView inheriting from ListView."""
     model = Album
@@ -84,3 +86,39 @@ class SingleAlbumView(ListView):
         albums = Album.objects.get(id=int(self.kwargs['albumid']))
         if albums.owner.user.username == self.request.user.username or albums.published == 'public':
             return {'albums': albums}
+
+
+class AddPhotoView(CreateView):
+    """Class based view for creating photos."""
+
+    model = Photo
+    form_class = PhotoForm
+    template_name = 'add_photo.html'
+
+    def form_valid(self, form):
+        photo = form.save()
+        photo.owner = self.request.user.profile
+        photo.date_uploaded = timezone.now()
+        photo.date_modified = timezone.now()
+        if photo.published == "public":
+            photo.published_date = timezone.now()
+        photo.save()
+        return redirect('library')
+
+
+class AddAlbumView(CreateView):
+    """Class based view for creating photos."""
+
+    model = Album
+    form_class = AlbumForm
+    template_name = 'add_album.html'
+
+    def form_valid(self, form):
+        album = form.save()
+        album.owner = self.request.user.profile
+        album.date_uploaded = timezone.now()
+        album.date_modified = timezone.now()
+        if album.published == "public":
+            album.published_date = timezone.now()
+        album.save()
+        return redirect('library')
