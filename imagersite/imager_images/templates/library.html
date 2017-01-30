@@ -15,6 +15,8 @@
             <p>
                 Your Albums
             </p>
+            <a href="{% url 'add_photo' %}"><button>Add a Photo</button></a>
+            <a href="{% url 'add_album' %}"><button>Add an Album</button></a>
             <div class='Row'>
             {% if albums.count >= 1 %}
                 {% for album in albums %}
