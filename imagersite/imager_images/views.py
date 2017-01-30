@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponseForbidden
+from django.http.response import HttpResponseForbidden, HttpResponseNotFound
 from django.views.generic import ListView, CreateView, UpdateView
 from .forms import PhotoForm, AlbumForm, EditPhotoForm, EditAlbumForm
 from imager_profile.models import ImagerProfile
@@ -61,7 +61,11 @@ class SinglePhotoView(ListView):
     def get_context_data(self):
         photo = Photo.objects.filter(id=int(self.kwargs['photoid'])).first()
         # import pdb; pdb.set_trace()
-        return {'photo': photo}
+        if photo and photo.owner: 
+            if photo.owner.user.username == self.request.user.username:
+                return {'photo': photo}
+        else:
+            return HttpResponseNotFound()
 
 
 class AlbumView(ListView):
