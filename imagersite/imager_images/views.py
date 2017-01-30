@@ -1,13 +1,13 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseForbidden
-from django.views.generic import ListView, TemplateView, CreateView
-from datetime import datetime
-from .forms import PhotoForm, AlbumForm
+from django.http import HttpResponseForbidden
+from django.views.generic import ListView, CreateView, UpdateView
+from .forms import PhotoForm, AlbumForm, EditPhotoForm, EditAlbumForm
 from imager_profile.models import ImagerProfile
 from imager_images.models import Photo, Album
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.utils import timezone
+from django.urls import reverse_lazy
 
 
 class LibraryView(ListView):
@@ -122,3 +122,59 @@ class AddAlbumView(CreateView):
             album.published_date = timezone.now()
         album.save()
         return redirect('library')
+
+
+class EditSingleAlbumView(LoginRequiredMixin, UpdateView):
+    """Edit an album."""
+
+    login_required = True
+    success_url = reverse_lazy('library')
+    template_name = 'imager_images/edit_album.html'
+    model = Album
+    form_class = EditAlbumForm
+
+    def get_form(self):
+        """Retrieve form and customize some fields."""
+        form = super(EditAlbumView, self).get_form()
+        form.fields['cover_photo'].queryset = self.request.user.profile.photos.all()
+        form.fields['photos'].queryset = self.request.user.profile.photos.all()
+        return form
+
+    def user_is_user(self, request):
+        """Test if album's owner is current user."""
+        if request.user.is_authenticated():
+            self.object = self.get_object()
+            return self.object.owner.user == request.user
+        return False
+
+    def dispatch(self, request, *args, **kwargs):
+        """If user owns album let them do stuff."""
+        if not self.user_is_user(request):
+            return HttpResponseForbidden()
+        return super(EditAlbumView, self).dispatch(
+            request, *args, **kwargs)
+
+
+class EditSinglePhotoView(LoginRequiredMixin, UpdateView):
+    """Edit a photo."""
+
+    login_required = True
+    success_url = reverse_lazy('library')
+    template_name = 'imager_images/edit_photo.html'
+    model = Photo
+    form_class = EditPhotoForm
+    form_class.Meta.exclude.append('photo')
+
+    def user_is_user(self, request):
+        """Test if album's owner is current user."""
+        if request.user.is_authenticated():
+            self.object = self.get_object()
+            return self.object.owner.user == request.user
+        return False
+
+    def dispatch(self, request, *args, **kwargs):
+        """If user doesn't own album, raise 403, else continue."""
+        if not self.user_is_user(request):
+            return HttpResponseForbidden()
+        return super(EditPhotoView, self).dispatch(
+            request, *args, **kwargs)
