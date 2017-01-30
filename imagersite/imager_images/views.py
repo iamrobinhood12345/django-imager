@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseForbidden
 from django.views.generic import ListView, TemplateView
 from datetime import datetime
 from .forms import PhotoForm
@@ -69,9 +69,18 @@ class AlbumView(ListView):
 
     def get_context_data(self):
         """Get albums and return them."""
-        album = Album.objects.get(id=self.kwargs['albumid'])
-        if album.published == 'public' or album.owner == self.request.user.user_id:
-            photos = album.images.all
-            return {'album': album, 'photos': photos}
-        else:
-            return HttpResponseForbidden()
+        albums = Album.objects.all()
+        return {'albums': albums}
+
+
+
+class SingleAlbumView(ListView):
+    """Return the AlbumView inheriting from ListView."""
+    model = Album
+    template_name = 'library.html'
+
+    def get_context_data(self):
+        """Get albums and return them."""
+        albums = Album.objects.get(id=int(self.kwargs['albumid']))
+        if albums.owner.user.username == self.request.user.username or albums.published == 'public':
+            return {'albums': albums}

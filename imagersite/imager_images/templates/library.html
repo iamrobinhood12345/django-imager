@@ -16,6 +16,7 @@
                 Your Albums
             </p>
             <div class='Row'>
+            {% if albums.count >= 1 %}
                 {% for album in albums %}
                 <div class='col-md-4'>
                     <a href="{{ album.cover_image.url }}"><img src="{{ album.cover_image.url }}" style="width:300px"/></a>
@@ -24,6 +25,14 @@
                     </figcaption>
                 </div>
                 {% endfor %}
+            {% else %}
+            <div class='col-md-4'>
+                    <a href="{{ albums.cover_image.url }}"><img src="{{ albums.cover_image.url }}" style="width:300px"/></a>
+                    <figcaption>
+                        {{ albums.description }}
+                    </figcaption>
+                </div>
+            {% endif %}
             </div>
         </div>
     </div>
@@ -36,7 +45,6 @@
           <div class='col-md-4'>
             </div>
           <div class='col-md-4'>
-            <img src="{{ img_url }}"/>
             <img src="{% static 'images/image_1.jpg' %}" alt="My image"/>
             </div>
           <div class='col-md-4'>
