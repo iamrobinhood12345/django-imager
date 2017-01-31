@@ -32,9 +32,8 @@ class PhotoView(ListView):
 
     def get(self, request):
         photos = Photo.objects.all()
-        form = PhotoForm()
         return render(request, 'photos.html',
-                      {'photos': photos, 'form': form})
+                      {'photos': photos})
 
 
 class SinglePhotoView(ListView):
@@ -44,12 +43,11 @@ class SinglePhotoView(ListView):
 
     def get_context_data(self):
         photo = Photo.objects.filter(id=int(self.kwargs['photoid'])).first()
-        # import pdb; pdb.set_trace()
         if photo and photo.owner: 
             if photo.owner.user.username == self.request.user.username:
                 return {'photo': photo}
         else:
-            return HttpResponseNotFound()
+            return HttpResponseForbidden()
 
 
 class AlbumView(ListView):
@@ -74,6 +72,8 @@ class SingleAlbumView(ListView):
         albums = Album.objects.get(id=int(self.kwargs['albumid']))
         if albums.owner.user.username == self.request.user.username or albums.published == 'public':
             return {'albums': albums}
+        # else:
+        #     return HttpResponseForbidden()
 
 
 class AddPhotoView(CreateView):
