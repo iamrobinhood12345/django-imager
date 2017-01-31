@@ -27,13 +27,6 @@
                     </figcaption>
                 </div>
                 {% endfor %}
-            {% else %}
-            <div class='col-md-4'>
-                    <a href="{{ albums.cover_image.url }}"><img src="{{ albums.cover_image.url }}" style="width:300px"/></a>
-                    <figcaption>
-                        {{ albums.description }}
-                    </figcaption>
-                </div>
             {% endif %}
             </div>
         </div>

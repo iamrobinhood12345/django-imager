@@ -1,8 +1,13 @@
 from django import forms
 from .models import Photo, Album
 
+
 class PhotoForm(forms.ModelForm):
+    """Form to add photo."""
+
     class Meta:
+        """Define what is to be put in the model."""
+
         model = Photo
         fields = ['title', 'description', 'image_file']
         title = forms.CharField(label='title', max_length=50)
@@ -10,7 +15,11 @@ class PhotoForm(forms.ModelForm):
 
 
 class AlbumForm(forms.ModelForm):
+    """Form to add album."""
+
     class Meta:
+        """Define what is to be put in the model."""
+
         model = Album
         fields = ['title', 'description', 'cover_image']
         title = forms.CharField(label='title', max_length=50)
@@ -21,7 +30,7 @@ class EditAlbumForm(forms.ModelForm):
     """Form to edit album."""
 
     class Meta:
-        """Define the model and exclude fields."""
+        """Define what should be in the form and exclude fields."""
 
         model = Album
         exclude = [

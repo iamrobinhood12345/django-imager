@@ -44,8 +44,7 @@ class SinglePhotoView(ListView):
 
     def get_context_data(self):
         photo = Photo.objects.filter(id=int(self.kwargs['photoid'])).first()
-        # import pdb; pdb.set_trace()
-        if photo and photo.owner: 
+        if photo and photo.owner:
             if photo.owner.user.username == self.request.user.username:
                 return {'photo': photo}
         else:
@@ -54,7 +53,6 @@ class SinglePhotoView(ListView):
 
 class AlbumView(ListView):
     """Return the AlbumView inheriting from ListView."""
-    # template_name = 'imager_images/templates/album.html'
     model = Album
     template_name = 'library.html'
 
@@ -67,13 +65,15 @@ class AlbumView(ListView):
 class SingleAlbumView(ListView):
     """Return the AlbumView inheriting from ListView."""
     model = Album
-    template_name = 'library.html'
+    template_name = 'single_album.html'
 
     def get_context_data(self):
         """Get albums and return them."""
-        albums = Album.objects.get(id=int(self.kwargs['albumid']))
-        if albums.owner.user.username == self.request.user.username or albums.published == 'public':
-            return {'albums': albums}
+        album = Album.objects.get(id=int(self.kwargs['albumid']))
+        if album.owner.user.username == self.request.user.username or album.published == 'public':
+            return {'album': album}
+        else:
+            return HttpResponseNotFound()
 
 
 class AddPhotoView(CreateView):
@@ -124,8 +124,8 @@ class EditSingleAlbumView(LoginRequiredMixin, UpdateView):
     def get_form(self):
         """Retrieve form and customize some fields."""
         form = super(EditSingleAlbumView, self).get_form()
-        form.fields['cover_photo'].queryset = self.request.user.profile.photos.all()
-        form.fields['photos'].queryset = self.request.user.profile.photos.all()
+        form.fields['cover_image'].queryset = self.request.user.profile.photo.all()
+        # form.fields['images'].queryset = self.request.user.profile.photo.all()
         return form
 
     def user_is_user(self, request):
