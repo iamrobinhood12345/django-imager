@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}
+
+<title>Public Photos</title>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="banner">
+      <div class="container">
+        <h3>
+          The Bottom Line.
+        </h3>
+        <p>
+          We deliver the images you create to the world.
+        </p>
+      </div>
+    </div>  
+        
+    <div class="cards">
+      <div class="container">
+        <h4>
+          Your Album.
+        </h4>
+        <div class='Row'>
+          <div class='col-md-4'>
+            </div>
+          <div class='col-md-4'>
+            <p>
+            <a href="{{ album.image_file.url }}"><img src="{{ album.image_file.url }}"></a>
+            <figcaption>{{ album.description }}</figcaption>
+            </p>
+            <a href="{% url 'edit_album' pk=album.pk %}"><button>Edit Album</button></a>
+            <p>
+            </div>
+          <div class='col-md-4'>
+             </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}

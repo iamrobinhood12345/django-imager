@@ -37,12 +37,6 @@ class PhotoView(ListView):
         photos = Photo.objects.all()
         return {'photos': photos}
 
-    # def get(self, request):
-    #     photos = Photo.objects.all()
-    #     form = PhotoForm()
-    #     return render(request, 'photos.html',
-    #                   {'photos': photos, 'form': form})
-
 
 class SinglePhotoView(ListView):
     """View a single photo on a page."""
@@ -55,7 +49,7 @@ class SinglePhotoView(ListView):
             if photo.owner.user.username == self.request.user.username:
                 return {'photo': photo}
         else:
-            return HttpResponseNotFound()
+            return HttpResponseForbidden()
 
 
 class AlbumView(ListView):

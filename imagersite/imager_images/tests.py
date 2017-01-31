@@ -275,6 +275,7 @@ class ImageTestCase(TestCase):
         self.assertTrue(response.status_code == 200)
 
     def test_logged_in_user_sees_their_albums(self):
+        """Logged in user should see their albums."""
         user = UserFactory.create()
         album1 = Album.objects.first()
         album2 = Album.objects.all()[1]
@@ -285,3 +286,57 @@ class ImageTestCase(TestCase):
 
         response = self.client.get(reverse_lazy("library"))
         self.assertTrue(album1.description in str(response.content))
+
+    def test_photo_view(self):
+        """Test images on photo view."""
+        image1 = Photo.objects.all()[0]
+        image2 = Photo.objects.all()[1]
+        user1 = User.objects.first()
+        image1.owner = user1.profile
+        image2.owner = user1.profile
+        image1.save()
+        image2.save()
+        self.client.force_login(user1)
+        response = self.client.get(reverse_lazy("allphotos"))
+        self.assertTrue(image1.image_file.url in str(response.content))
+
+    def test_Single_Photo_view(self):
+        """Test image on single photo view."""
+        image1 = Photo.objects.all()[0]
+        image2 = Photo.objects.all()[1]
+        user1 = User.objects.first()
+        image1.owner = user1.profile
+        image2.owner = user1.profile
+        image1.save()
+        image2.save()
+        self.client.force_login(user1)
+        response = self.client.get(reverse_lazy("singlephoto", kwargs={'photoid': image1.id}))
+        self.assertTrue(image1.image_file.url in str(response.content))
+
+    def test_logged_in_user_sees_their_albums_on_albums(self):
+        """Logged in user should see their albums."""
+        user = UserFactory.create()
+        album1 = Album.objects.first()
+        album2 = Album.objects.all()[1]
+        user.profile.album.add(album1)
+        user.profile.album.add(album2)
+        user.save()
+        # import pdb; pdb.set_trace()
+        self.client.force_login(user)
+        response = self.client.get(reverse_lazy("singlealbum", kwargs={'albumid': album1.id}))
+        self.assertTrue(album1.description in str(response.content))
+
+    # def test_logged_in_user_does_not_see_other_albums(self):
+    #     """Logged in user should see their albums."""
+    #     user1 = UserFactory.create()
+    #     user2 = UserFactory.create()
+    #     album1 = Album.objects.first()
+    #     album2 = Album.objects.all()[1]
+    #     user1.profile.album.add(album1)
+    #     user1.profile.album.add(album2)
+    #     user1.save()
+    #     user2.save()
+    #     self.client.force_login(user2)
+    #     response = self.client.get(reverse_lazy("singlealbum", kwargs={'albumid': album1.id}))
+    #     # import pdb; pdb.set_trace()
+    #     self.assertTrue(response.status_code == 301)
