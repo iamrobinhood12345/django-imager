@@ -30,10 +30,12 @@ class LibraryView(ListView):
 
 class PhotoView(ListView):
 
-    def get(self, request):
+    model = Photo
+    template_name = 'photos.html'
+
+    def get_context_data(self):
         photos = Photo.objects.all()
-        return render(request, 'photos.html',
-                      {'photos': photos})
+        return {'photos': photos}
 
 
 class SinglePhotoView(ListView):

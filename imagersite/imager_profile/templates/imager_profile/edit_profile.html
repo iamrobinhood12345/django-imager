@@ -2,7 +2,7 @@
 
 {% block title %}
 
-<title>Public Photos</title>
+<title>Edit Profile</title>
 
 {% endblock %}
 
@@ -11,7 +11,7 @@
     <div class="banner">
       <div class="container">
         <h3>
-          The Bottom Line.
+          The Bottom Line. Edit Your Profile.
         </h3>
         <p>
           We deliver the images you create to the world.
@@ -22,18 +22,16 @@
     <div class="cards">
       <div class="container">
         <h4>
-          Your Album.
+          Make your changes. Edit Your Profile -- You Really Should.
         </h4>
         <div class='Row'>
           <div class='col-md-4'>
             </div>
           <div class='col-md-4'>
-            <p>
-            <a href="{{ album.image_file.url }}"><img src="{{ album.image_file.url }}"></a>
-            <figcaption>{{ album.description }}</figcaption>
-            </p>
-            <a href="{% url 'edit_album' pk=album.pk %}"><button>Edit Album</button></a>
-            <p>
+              <form method="POST" class="edit-album-form" enctype="multipart/form-data">
+              {% csrf_token %}
+              {{ form.as_p }}
+              <button type="submit">Edit</button>
             </div>
           <div class='col-md-4'>
              </div>
