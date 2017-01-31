@@ -20,12 +20,15 @@
             <ul class='nav nav-tabs pull-right'>
               <li role='presentation'><a href='{% url "home" %}'>Home</a></li>
               {% if user.is_authenticated %}
+                <li role='presentation'><a href='{% url "profile" %}'>Profile</a></li>
+                <li role='presentation'><a href='{% url "library" %}'>Library</a></li>
+                <li role='presentation'><a href='{% url "album" %}'>Albums</a></li>
+                <li role='presentation'><a href='{% url "allphotos" %}'>Photos</a></li>
                 <li role='presentation'><a href='{% url "logout" %}'>Logout</a></li>
               {% else %}
                 <li role='presentation'><a href='{% url "login" %}'>Login</a></li>
                 <li role='presentation'><a href='{% url "registration_register" %}'>Register</a></li>
               {% endif %}
-              <li role='presentation'><a href='#'>Contact</a></li>
             </ul>
           </div>
         </div>
