@@ -27,15 +27,12 @@
         <div class='Row'>
           <div class='col-md-4'>
             </div>
-          <div class='col-md-4'>
-            <p>
-            <a href="{{ photo.image_file.url }}"><img src="{{ photo.image_file.url }}"></a>
-            <figcaption>{{ photo.description }}</figcaption>
-            </p>
-            {% if request.user_id ==  %}
-            <a href="{% url 'edit_photo' photoid=photo.id %}"><button>Edit Photo</button></a>
-            <p>
-            </div>
+                <div class='col-md-4'>
+                    <a href="{{ album.cover_image.url }}"><img src="{{ album.cover_image.url }}" style="width:300px"/></a>
+                    <figcaption>
+                        {{ album.description }}
+                    </figcaption>
+                </div>
           <div class='col-md-4'>
              </div>
         </div>

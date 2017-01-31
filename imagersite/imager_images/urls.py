@@ -21,8 +21,8 @@ urlpatterns = [
         name='singlealbum'),
     url(r'^photos/add/$', AddPhotoView.as_view(), name='add_photo'),
     url(r'^albums/add/$', AddAlbumView.as_view(), name='add_album'),
-    url(r'^albums/(?P<pk>\d+)/edit/$', EditSingleAlbumView.as_view(),
+    url(r'^albums/(?P<albumid>\d+)/edit/$', EditSingleAlbumView.as_view(),
         name='edit_album'),
-    url(r'^photos/(?P<pk>\d+)/edit/$', EditSinglePhotoView.as_view(),
+    url(r'^photos/(?P<photoid>\d+)/edit/$', EditSinglePhotoView.as_view(),
         name='edit_photo'),
 ]

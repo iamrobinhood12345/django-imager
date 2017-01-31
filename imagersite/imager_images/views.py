@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http.response import HttpResponseForbidden, HttpResponseNotFound
+from django.http import Http404
 from django.views.generic import ListView, CreateView, UpdateView
 from .forms import PhotoForm, AlbumForm, EditPhotoForm, EditAlbumForm
 from imager_profile.models import ImagerProfile
@@ -47,7 +47,8 @@ class SinglePhotoView(ListView):
             if photo.owner.user.username == self.request.user.username:
                 return {'photo': photo}
         else:
-            return HttpResponseForbidden()
+            raise Http404("NOPE")
+        return {}
 
 
 class AlbumView(ListView):
@@ -61,7 +62,7 @@ class AlbumView(ListView):
         return {'albums': albums}
 
 
-class SingleAlbumView(ListView):
+class SingleAlbumView(LoginRequiredMixin, ListView):
     """Return the AlbumView inheriting from ListView."""
     model = Album
     template_name = 'single_album.html'
@@ -72,7 +73,8 @@ class SingleAlbumView(ListView):
         if album.owner.user.username == self.request.user.username or album.published == 'public':
             return {'album': album}
         else:
-            return HttpResponseNotFound()
+            raise Http404("NOPE")
+        return {}
 
 
 class AddPhotoView(CreateView):

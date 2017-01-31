@@ -321,22 +321,37 @@ class ImageTestCase(TestCase):
         user.profile.album.add(album1)
         user.profile.album.add(album2)
         user.save()
-        # import pdb; pdb.set_trace()
         self.client.force_login(user)
         response = self.client.get(reverse_lazy("singlealbum", kwargs={'albumid': album1.id}))
         self.assertTrue(album1.description in str(response.content))
 
-    # def test_logged_in_user_does_not_see_other_albums(self):
-    #     """Logged in user should see their albums."""
-    #     user1 = UserFactory.create()
-    #     user2 = UserFactory.create()
-    #     album1 = Album.objects.first()
-    #     album2 = Album.objects.all()[1]
-    #     user1.profile.album.add(album1)
-    #     user1.profile.album.add(album2)
-    #     user1.save()
-    #     user2.save()
-    #     self.client.force_login(user2)
-    #     response = self.client.get(reverse_lazy("singlealbum", kwargs={'albumid': album1.id}))
-    #     # import pdb; pdb.set_trace()
-    #     self.assertTrue(response.status_code == 301)
+    def test_logged_in_user_does_not_see_other_albums(self):
+        """Logged in user should see their albums."""
+        user1 = UserFactory.create()
+        user2 = UserFactory.create()
+        album1 = Album.objects.first()
+        album2 = Album.objects.all()[1]
+        user1.profile.album.add(album1)
+        user1.profile.album.add(album2)
+        user1.save()
+        user2.save()
+        self.client.force_login(user2)
+        # import pdb; pdb.set_trace()
+        response = self.client.get('/images/albums/' + str(album1.id), {"follow": True}, follow=True)
+        self.assertTrue(response.status_code == 404)
+
+    def test_single_photo_view_returns_404(self):
+        """Test image on single photo view."""
+        image1 = Photo.objects.all()[0]
+        image2 = Photo.objects.all()[1]
+        user1 = User.objects.first()
+        user2 = UserFactory.create()
+        image1.owner = user1.profile
+        image2.owner = user1.profile
+        image1.save()
+        image2.save()
+        user2.save()
+        self.client.force_login(user2)
+        import pdb; pdb.set_trace()
+        response = self.client.get(reverse_lazy("singlephoto", kwargs={'photoid': image1.id}))
+        self.assertTrue(response.status_code == 404)
