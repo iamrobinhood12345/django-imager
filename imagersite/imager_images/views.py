@@ -30,11 +30,18 @@ class LibraryView(ListView):
 
 class PhotoView(ListView):
 
-    def get(self, request):
+    model = Photo
+    template_name = 'photos.html'
+
+    def get_context_data(self):
         photos = Photo.objects.all()
-        form = PhotoForm()
-        return render(request, 'photos.html',
-                      {'photos': photos, 'form': form})
+        return {'photos': photos}
+
+    # def get(self, request):
+    #     photos = Photo.objects.all()
+    #     form = PhotoForm()
+    #     return render(request, 'photos.html',
+    #                   {'photos': photos, 'form': form})
 
 
 class SinglePhotoView(ListView):
