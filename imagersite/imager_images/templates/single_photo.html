@@ -22,7 +22,7 @@
     <div class="cards">
       <div class="container">
         <h4>
-          Our Community Shots.
+          Your Photo.
         </h4>
         <div class='Row'>
           <div class='col-md-4'>
@@ -32,6 +32,8 @@
             <a href="{{ photo.image_file.url }}"><img src="{{ photo.image_file.url }}"></a>
             <figcaption>{{ photo.description }}</figcaption>
             </p>
+            <a href="{% url 'edit_photo' pk=photo.pk %}"><button>Edit Photo</button></a>
+            <p>
             </div>
           <div class='col-md-4'>
              </div>

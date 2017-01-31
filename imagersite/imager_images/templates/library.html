@@ -15,8 +15,6 @@
             <p>
                 Your Albums
             </p>
-            <a href="{% url 'add_photo' %}"><button>Add a Photo</button></a>
-            <a href="{% url 'add_album' %}"><button>Add an Album</button></a>
             <div class='Row'>
             {% if albums.count >= 1 %}
                 {% for album in albums %}
@@ -27,8 +25,19 @@
                     </figcaption>
                 </div>
                 {% endfor %}
+            {% else %}
+                <div class='col-md-4'>
+                    <a href="{{ album.cover_image.url }}"><img src="{{ album.cover_image.url }}" style="width:300px"/></a>
+                    <figcaption>
+                        {{ album.description }}
+                    </figcaption>
+                </div>
             {% endif %}
             </div>
+            <br>
+            <a href="{% url 'add_photo' %}"><button>Add a Photo</button></a>
+            <a href="{% url 'add_album' %}"><button>Add an Album</button></a>
+            <p>
         </div>
     </div>
     <div class="cards">
