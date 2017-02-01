@@ -7,7 +7,7 @@ ALLOWED_HOSTS = ["127.0.0.1",
                  "ec2-54-202-162-152.us-west-2.compute.amazonaws.com",
                  'localhost']
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATIC_URL = '/imagersite/static/'
+STATIC_URL = 'static/'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 EMAIL_HOST_USER = 'conor.clary@gmail.com'
