@@ -84,7 +84,7 @@ DATABASES = {
         'USER': os.environ.get('DB_USER', ''),
         'PASSWORD': os.environ.get('DB_PASS', ''),
         'HOST': os.environ.get('DB_HOST', '127.0.0.1'),
-        'PORT': os.enviorn.get('DB_PORT', '5432'),
+        'PORT': os.environ.get('DB_PORT', '5432'),
         'TEST': {
             'NAME': 'test_imager'
         }
