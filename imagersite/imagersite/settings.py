@@ -140,7 +140,7 @@ ACCOUNT_ACTIVATION_DAYS = 7
 
 #EMAIL STUFF
 
-if DEBUG:
+if DEBUG is True:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 else:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
