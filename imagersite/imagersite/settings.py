@@ -133,23 +133,27 @@ STATIC_URL = '/imagersite/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'MEDIA')
 MEDIA_URL = '/MEDIA/'
 
-MEDIA_URL = '/MEDIA/'
-
 
 #DJANGO-registration
 
 ACCOUNT_ACTIVATION_DAYS = 7
 
 #EMAIL STUFF
-#Code to run server python -m smtpd -n -c DebuggingServer 127.0.0.1:1025
-# EMAIL_HOST = "127.0.0.1"
-# EMAIL_PORT = "1025"
 
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 else:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+EMAIL_HOST_USER = 'conor.clary@gmail.com'
+
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_PASS", "")
+
 #LOGIN/LOGOUT URLS
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
+

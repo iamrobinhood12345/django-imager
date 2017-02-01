@@ -336,10 +336,6 @@ class ImageTestCase(TestCase):
         user1.save()
         user2.save()
         self.client.force_login(user2)
-# <<<<<<< HEAD
-        # response = self.client.get(reverse_lazy("singlealbum", kwargs={'albumid': album1.id}))
-        # self.assertTrue(response.status_code == 301)
-# =======
         response = self.client.get('/images/albums/' + str(album1.id), {"follow": True}, follow=True)
         self.assertTrue(response.status_code == 404)
 
@@ -355,6 +351,5 @@ class ImageTestCase(TestCase):
         image2.save()
         user2.save()
         self.client.force_login(user2)
-
         response = self.client.get(reverse_lazy("singlephoto", kwargs={'photoid': image1.id}))
         self.assertTrue(response.status_code == 404)
