@@ -321,22 +321,21 @@ class ImageTestCase(TestCase):
         user.profile.album.add(album1)
         user.profile.album.add(album2)
         user.save()
-        # import pdb; pdb.set_trace()
         self.client.force_login(user)
         response = self.client.get(reverse_lazy("singlealbum", kwargs={'albumid': album1.id}))
         self.assertTrue(album1.description in str(response.content))
 
-    # def test_logged_in_user_does_not_see_other_albums(self):
-    #     """Logged in user should see their albums."""
-    #     user1 = UserFactory.create()
-    #     user2 = UserFactory.create()
-    #     album1 = Album.objects.first()
-    #     album2 = Album.objects.all()[1]
-    #     user1.profile.album.add(album1)
-    #     user1.profile.album.add(album2)
-    #     user1.save()
-    #     user2.save()
-    #     self.client.force_login(user2)
-    #     response = self.client.get(reverse_lazy("singlealbum", kwargs={'albumid': album1.id}))
-    #     # import pdb; pdb.set_trace()
-    #     self.assertTrue(response.status_code == 301)
+    def test_logged_in_user_does_not_see_other_albums(self):
+        """Logged in user should see their albums."""
+        user1 = UserFactory.create()
+        user2 = UserFactory.create()
+        album1 = Album.objects.first()
+        album2 = Album.objects.all()[1]
+        user1.profile.album.add(album1)
+        user1.profile.album.add(album2)
+        user1.save()
+        user2.save()
+        self.client.force_login(user2)
+        response = self.client.get(reverse_lazy("singlealbum", kwargs={'albumid': album1.id}))
+        import pdb; pdb.set_trace()
+        self.assertTrue(response.status_code == 301)
