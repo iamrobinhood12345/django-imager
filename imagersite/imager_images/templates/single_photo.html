@@ -32,7 +32,8 @@
             <a href="{{ photo.image_file.url }}"><img src="{{ photo.image_file.url }}"></a>
             <figcaption>{{ photo.description }}</figcaption>
             </p>
-            <a href="{% url 'edit_photo' pk=photo.pk %}"><button>Edit Photo</button></a>
+            {% if request.user_id ==  %}
+            <a href="{% url 'edit_photo' photoid=photo.id %}"><button>Edit Photo</button></a>
             <p>
             </div>
           <div class='col-md-4'>

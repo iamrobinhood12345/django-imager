@@ -25,7 +25,8 @@ SECRET_KEY = '150=t3r0)n7qzcs*0sivxeu7g@11)4*9)zj)ud9j(uuhhju$9w'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "54.202.162.152",
+                 "ec2-54-202-162-152.us-west-2.compute.amazonaws.com"]
 
 
 # Application definition
@@ -79,11 +80,11 @@ WSGI_APPLICATION = 'imagersite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'django_imager',
+        'NAME': os.environ.get('DB_NAME', 'django_imager'),
         'USER': os.environ.get('DB_USER', ''),
         'PASSWORD': os.environ.get('DB_PASS', ''),
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'HOST': os.environ.get('DB_HOST', '127.0.0.1'),
+        'PORT': os.enviorn.get('DB_PORT', '5432'),
         'TEST': {
             'NAME': 'test_imager'
         }
@@ -144,7 +145,10 @@ ACCOUNT_ACTIVATION_DAYS = 7
 # EMAIL_HOST = "127.0.0.1"
 # EMAIL_PORT = "1025"
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 #LOGIN/LOGOUT URLS
 LOGIN_REDIRECT_URL = 'home'
