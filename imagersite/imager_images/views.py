@@ -76,7 +76,7 @@ class SingleAlbumView(LoginRequiredMixin, ListView):
             return {'album': album}
         else:
             raise Http404("NOPE")
-        return {}
+        return {"A string"}
 
 
 class AddPhotoView(CreateView):

@@ -41,7 +41,10 @@
 
                             <li>type of photography: {{ profile.type_photography }}</li>
 
-                        </ul> 
+                        </ul>
+                        <p>
+                        <a href="{% url 'edit_profile' %}"><button>Edit Profile</button></a>
+                            
                         {% else %}
                         <h3>{{ error }}</h3>
                         {% endif %}

@@ -34,6 +34,7 @@
             </p>
             {% if request.user_id ==  %}
             <a href="{% url 'edit_photo' photoid=photo.id %}"><button>Edit Photo</button></a>
+            {% endif %}
             <p>
             </div>
           <div class='col-md-4'>
