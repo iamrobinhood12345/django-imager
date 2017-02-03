@@ -68,10 +68,7 @@ class AlbumView(ListView):
     def get_context_data(self):
         """Get albums and return them."""
         albums = Album.objects.all()
-        if albums and albums.owner:
-            if albums.owner.user.username == self.request.user.username:
-                return {'albums': albums}
-        return{}
+        return {'albums': albums}
 
 
 class SingleAlbumView(LoginRequiredMixin, ListView):
