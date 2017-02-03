@@ -73,15 +73,6 @@ class AlbumView(ListView):
                 return {'albums': albums}
         return{}
 
-    def get(self, request, *args, **kwargs):
-        """Get method to return."""
-        self.object_list = self.get_queryset()
-        context = self.get_context_data()
-        if context:
-            return self.render_to_response(context)
-        else:
-            return HttpResponseForbidden()
-
 
 class SingleAlbumView(LoginRequiredMixin, ListView):
     """Return the AlbumView inheriting from ListView."""
