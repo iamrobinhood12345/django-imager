@@ -3,7 +3,7 @@ from imagersite.settings import *
 DEBUG = False
 TEMPLATE_DEBUG = False
 ALLOWED_HOSTS = ["127.0.0.1",
-                 "54.245.7.225". "54.202.162.152",
+                 "54.245.7.225", "54.202.162.152",
                  "ec2-54-202-162-152.us-west-2.compute.amazonaws.com",
                  'localhost', "ec2-54-245-7-225.us-west-2.compute.amazonaws.com"]
 
