@@ -1,5 +1,5 @@
-from django.shortcuts import render
 from django.http import Http404
+from django.http.response import HttpResponseForbidden
 from django.views.generic import ListView, CreateView, UpdateView
 from .forms import PhotoForm, AlbumForm, EditPhotoForm, EditAlbumForm
 from imager_profile.models import ImagerProfile
@@ -48,9 +48,16 @@ class SinglePhotoView(ListView):
         if photo and photo.owner:
             if photo.owner.user.username == self.request.user.username:
                 return {'photo': photo}
-        else:
-            raise Http404("NOPE")
         return {}
+
+    def get(self, request, *args, **kwargs):
+        """Get method to return."""
+        self.object_list = self.get_queryset()
+        context = self.get_context_data()
+        if context:
+            return self.render_to_response(context)
+        else:
+            return HttpResponseForbidden()
 
 
 class AlbumView(ListView):
@@ -61,7 +68,19 @@ class AlbumView(ListView):
     def get_context_data(self):
         """Get albums and return them."""
         albums = Album.objects.all()
-        return {'albums': albums}
+        if albums and albums.owner:
+            if albums.owner.user.username == self.request.user.username:
+                return {'albums': albums}
+        return{}
+
+    def get(self, request, *args, **kwargs):
+        """Get method to return."""
+        self.object_list = self.get_queryset()
+        context = self.get_context_data()
+        if context:
+            return self.render_to_response(context)
+        else:
+            return HttpResponseForbidden()
 
 
 class SingleAlbumView(LoginRequiredMixin, ListView):
@@ -74,9 +93,16 @@ class SingleAlbumView(LoginRequiredMixin, ListView):
         album = Album.objects.get(id=int(self.kwargs['albumid']))
         if album.owner.user.username == self.request.user.username or album.published == 'public':
             return {'album': album}
+        return {}
+
+    def get(self, request, *args, **kwargs):
+        """Get method to return."""
+        self.object_list = self.get_queryset()
+        context = self.get_context_data()
+        if context:
+            return self.render_to_response(context)
         else:
-            raise Http404("NOPE")
-        return {"A string"}
+            return HttpResponseForbidden()
 
 
 class AddPhotoView(CreateView):

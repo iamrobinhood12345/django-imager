@@ -32,7 +32,7 @@
             <a href="{{ album.image_file.url }}"><img src="{{ album.image_file.url }}"></a>
             <figcaption>{{ album.description }}</figcaption>
             </p>
-            <a href="{% url 'edit_album' pk=album.pk %}"><button>Edit Album</button></a>
+            <a href="{% url 'edit_album' albumid=album.pk %}"><button>Edit Album</button></a>
             <p>
             </div>
           <div class='col-md-4'>
