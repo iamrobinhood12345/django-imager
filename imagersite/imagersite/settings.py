@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'imagersite',
     'imager_profile',
     'imager_images',
+    'taggit'
 ]
 
 MIDDLEWARE = [
@@ -157,3 +158,6 @@ EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_PASS", "")
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 
+
+#TAGGIT SETTINGS
+TAGGIT_CASE_INSENSITIVE = True

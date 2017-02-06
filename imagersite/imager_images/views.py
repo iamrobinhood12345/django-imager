@@ -183,3 +183,31 @@ class EditSinglePhotoView(LoginRequiredMixin, UpdateView):
             return HttpResponseForbidden()
         return super(EditSinglePhotoView, self).dispatch(
             request, *args, **kwargs)
+
+
+class TagListAlbumView(ListView):
+    """The listing for tagged Albums."""
+
+    template_name = "library.html"
+
+    def get_queryset(self):
+        return Album.objects.filter(tags__slug=self.kwargs.get("slug")).all()
+
+    def get_context_data(self, **kwargs):
+        context = super(TagListAlbumView, self).get_context_data(**kwargs)
+        context["tag"] = self.kwargs.get("slug")
+        return context
+
+
+class TagListPhotoView(ListView):
+    """The listing for tagged Photos."""
+
+    template_name = "photos.html"
+
+    def get_queryset(self):
+        return Photo.objects.filter(tags__slug=self.kwargs.get("slug")).all()
+
+    def get_context_data(self, **kwargs):
+        context = super(TagListPhotoView, self).get_context_data(**kwargs)
+        context["tag"] = self.kwargs.get("slug")
+        return context

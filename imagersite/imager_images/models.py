@@ -1,8 +1,10 @@
 """Models for imager_images module. Contains Photo and Album model Classes."""
 
 from django.db import models
-from django.utils import timezone
 from imager_profile.models import ImagerProfile
+from taggit.managers import TaggableManager
+
+
 
 PUBLISHED = [
     ('private', 'Private'),
@@ -32,6 +34,7 @@ class Photo(models.Model):
         default='private'
     )
     image_file = models.ImageField(upload_to='images')
+    tags = TaggableManager()
 
     def __str__(self):
         """Return title as string."""
@@ -62,7 +65,7 @@ class Album(models.Model):
         "Photo",
         related_name="albums_of_photos",
         symmetrical=False)
-
+    tags = TaggableManager()
     cover_image = models.ImageField(upload_to='images/cover_photos')
 
     def __str__(self):
