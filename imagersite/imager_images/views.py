@@ -142,7 +142,6 @@ class EditSingleAlbumView(LoginRequiredMixin, UpdateView):
         """Retrieve form and customize some fields."""
         form = super(EditSingleAlbumView, self).get_form()
         form.fields['cover_image'].queryset = self.request.user.profile.photo.all()
-        # form.fields['images'].queryset = self.request.user.profile.photo.all()
         return form
 
     def user_is_user(self, request):
@@ -196,7 +195,8 @@ class TagListAlbumView(ListView):
     def get_context_data(self, **kwargs):
         context = super(TagListAlbumView, self).get_context_data(**kwargs)
         context["tag"] = self.kwargs.get("tag")
-        return context
+        albums = Album.objects.filter(tags__slug=self.kwargs.get("tag")).all()
+        return {"albums": albums, "tag": context["tag"]}
 
 
 class TagListPhotoView(ListView):
@@ -210,4 +210,5 @@ class TagListPhotoView(ListView):
     def get_context_data(self, **kwargs):
         context = super(TagListPhotoView, self).get_context_data(**kwargs)
         context["tag"] = self.kwargs.get("tag")
-        return context
+        photos = Photo.objects.filter(tags__slug=self.kwargs.get("tag")).all()
+        return {"photos": photos, "tag": context["tag"]}
