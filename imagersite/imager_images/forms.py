@@ -9,7 +9,7 @@ class PhotoForm(forms.ModelForm):
         """Define what is to be put in the model."""
 
         model = Photo
-        fields = ['title', 'description', 'image_file']
+        fields = ['title', 'description', 'image_file', 'tags', 'published']
         title = forms.CharField(label='title', max_length=50)
         description = forms.CharField(label='description', max_length=200)
 
@@ -21,7 +21,7 @@ class AlbumForm(forms.ModelForm):
         """Define what is to be put in the model."""
 
         model = Album
-        fields = ['title', 'description', 'cover_image']
+        fields = ['title', 'description', 'cover_image', 'tags', 'published']
         title = forms.CharField(label='title', max_length=50)
         description = forms.CharField(label='description', max_length=200)
 
@@ -40,7 +40,7 @@ class EditAlbumForm(forms.ModelForm):
             'date_published',
             'owner'
         ]
-        fields = ['title', 'description', 'cover_image']
+        fields = ['title', 'description', 'cover_image', 'tags', 'published']
         title = forms.CharField(label='title', max_length=50)
         description = forms.CharField(label='description', max_length=200)
 
@@ -59,6 +59,6 @@ class EditPhotoForm(forms.ModelForm):
             'date_published',
             'photo'
         ]
-        fields = ['title', 'description', 'image_file']
+        fields = ['title', 'description', 'image_file', 'tags', 'published']
         title = forms.CharField(label='title', max_length=50)
         description = forms.CharField(label='description', max_length=200)
