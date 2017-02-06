@@ -188,26 +188,26 @@ class EditSinglePhotoView(LoginRequiredMixin, UpdateView):
 class TagListAlbumView(ListView):
     """The listing for tagged Albums."""
 
-    template_name = "library.html"
+    template_name = "albums_tagged.html"
 
     def get_queryset(self):
-        return Album.objects.filter(tags__slug=self.kwargs.get("slug")).all()
+        return Album.objects.filter(tags__slug=self.kwargs.get("tag")).all()
 
     def get_context_data(self, **kwargs):
         context = super(TagListAlbumView, self).get_context_data(**kwargs)
-        context["tag"] = self.kwargs.get("slug")
+        context["tag"] = self.kwargs.get("tag")
         return context
 
 
 class TagListPhotoView(ListView):
     """The listing for tagged Photos."""
 
-    template_name = "photos.html"
+    template_name = "photos_tagged.html"
 
     def get_queryset(self):
-        return Photo.objects.filter(tags__slug=self.kwargs.get("slug")).all()
+        return Photo.objects.filter(tags__slug=self.kwargs.get("tag")).all()
 
     def get_context_data(self, **kwargs):
         context = super(TagListPhotoView, self).get_context_data(**kwargs)
-        context["tag"] = self.kwargs.get("slug")
+        context["tag"] = self.kwargs.get("tag")
         return context

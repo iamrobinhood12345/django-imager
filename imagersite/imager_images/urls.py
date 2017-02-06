@@ -27,10 +27,10 @@ urlpatterns = [
         name='edit_album'),
     url(r'^photos/(?P<pk>\d+)/edit/$', EditSinglePhotoView.as_view(),
         name='edit_photo'),
-    url(r'^albums/tagged/(?P<slug>[-\w]+)/$',
+    url(r'^albums/tagged/(?P<tag>[-\w]+)/$',
         TagListAlbumView.as_view(),
         name="tagged_albums"),
-    url(r'^photos/tagged/(?P<slug>[-\w]+)/$',
+    url(r'^photos/tagged/(?P<tag>[-\w]+)/$',
         TagListPhotoView.as_view(),
         name="tagged_photos"),
 ]
