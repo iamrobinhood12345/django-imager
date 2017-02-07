@@ -22,7 +22,7 @@ class PhotoSerializer(serializers.HyperlinkedModelSerializer):
             'date_published',
             'published',
             'image_file',
-            'tags')
+            'highlight')
 
 
 class AlbumSerializer(serializers.HyperlinkedModelSerializer):
@@ -42,8 +42,8 @@ class AlbumSerializer(serializers.HyperlinkedModelSerializer):
             'date_published',
             'published',
             'images',
-            'tags',
-            'cover_image')
+            'cover_image',
+            'highlight')
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -52,4 +52,4 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'photos', 'albums')
+        fields = ('id', 'username', 'snippets')
