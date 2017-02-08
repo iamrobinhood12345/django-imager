@@ -33,7 +33,7 @@
             <figcaption>{{ photo.description }}</figcaption>
             </p>
             {% if request.user_id == photo.owner %}
-            <a href="{% url 'edit_photo' photoid=photo.id %}"><button>Edit Photo</button></a>
+            <a href="{% url 'edit_photo' pk=photo.id %}"><button>Edit Photo</button></a>
             {% endif %}
             <p>
             </div>
