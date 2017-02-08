@@ -19,7 +19,7 @@
             {% if albums.count >= 1 %}
                 {% for album in albums %}
                 <div class='col-md-4'>
-                    <a href="{% url 'singlealbum' albumid=pk=album.pk %}"><img src="{{ album.cover_image.url }}" style="width:300px"/></a>
+                    <a href="{% url 'singlealbum' albumid=album.pk %}"><img src="{{ album.cover_image.url }}" style="width:300px"/></a>
                     <figcaption>
                         {{ album.description }}
                     </figcaption>
@@ -27,7 +27,7 @@
                 {% endfor %}
             {% else %}
                 <div class='col-md-4'>
-                    <a href="{% url 'singlealbum' albumid=pk=album.pk %}"><img src="{{ album.cover_image.url }}" style="width:300px"/></a>
+                    <a href="{% url 'singlealbum' albumid=album.pk %}"><img src="{{ album.cover_image.url }}" style="width:300px"/></a>
                     <figcaption>
                         {{ album.description }}
                     </figcaption>
