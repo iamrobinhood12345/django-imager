@@ -32,7 +32,7 @@
             {% for photo in photos %}
             <p>
             {{ photo.description }}
-            <a href="{{ photo.image_file.url }}">
+            <a href="{% url 'singlephoto' photoid=photo.id %}">
             <img src="{{ photo.image_file.url }}" width="100px" height="100px"></a>
             </p>
             {% endfor %}
@@ -40,11 +40,15 @@
           {% else %}
             <p>
             {{ photo.description }}
-            <a href="{{ photo.image_file.url }}">
+            <a href="{% url 'singlephoto' photoid=photo.id %}">
             <img src="{{ photo.image_file.url }}" width="100px" height="100px"></a>
             </p>
           {% endif %}
           <div class='col-md-4'>
+            <br>
+            <a href="{% url 'add_photo' %}"><button>Add a Photo</button></a>
+            <a href="{% url 'add_album' %}"><button>Add an Album</button></a>
+            <p>
              </div>
         </div>
       </div>

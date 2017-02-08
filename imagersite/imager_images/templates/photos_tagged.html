@@ -34,7 +34,7 @@
             {% for photo in photos %}
             <p>
             {{ photo.description }}
-            <a href="{{ photo.image_file.url }}">
+            <a href="{% url 'singlephoto' photoid=photo.id %}">
             <img src="{{ photo.image_file.url }}" width="100px" height="100px"></a>
             </p>
             {% endfor %}
