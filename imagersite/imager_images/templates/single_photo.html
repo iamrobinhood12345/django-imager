@@ -32,9 +32,7 @@
             <a href="{{ photo.image_file.url }}"><img src="{{ photo.image_file.url }}"></a>
             <figcaption>{{ photo.description }}</figcaption>
             </p>
-            {% if request.user_id == photo.owner %}
             <a href="{% url 'edit_photo' pk=photo.id %}"><button>Edit Photo</button></a>
-            {% endif %}
             <p>
             </div>
           <div class='col-md-4'>
