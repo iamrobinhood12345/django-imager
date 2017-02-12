@@ -1,4 +1,4 @@
-from django.http import Http404
+from django.core.paginator import Paginator
 from django.http.response import HttpResponseForbidden
 from django.views.generic import ListView, CreateView, UpdateView
 from .forms import PhotoForm, AlbumForm, EditPhotoForm, EditAlbumForm
@@ -20,6 +20,8 @@ class LibraryView(ListView):
         profile = ImagerProfile.active.get(user__username=self.request.user.username)
         photos = profile.photo.all()
         albums = profile.album.all()
+        paginated_photos = Paginator(photos, 4)
+        paginated_albums = Paginator(albums, 4)
         username = self.request.user.username
         return {'photos': photos, 'profile': profile, 'albums': albums, 'username': username}
 
