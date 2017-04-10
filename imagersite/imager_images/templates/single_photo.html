@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}
+
+<title>Public Photos</title>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="banner">
+      <div class="container">
+        <h3>
+          The Bottom Line.
+        </h3>
+        <p>
+          We deliver the images you create to the world.
+        </p>
+      </div>
+    </div>  
+        
+    <div class="cards">
+      <div class="container">
+        <h4>
+          Your Photo.
+        </h4>
+        <div class='Row'>
+          <div class='col-md-4'>
+            </div>
+          <div class='col-md-4'>
+            <p>
+            <a href="{{ photo.image_file.url }}"><img src="{{ photo.image_file.url }}"></a>
+            <figcaption>{{ photo.description }}</figcaption>
+            </p>
+            {% if request.user_id == photo.owner %}
+            <a href="{% url 'edit_photo' photoid=photo.id %}"><button>Edit Photo</button></a>
+            {% endif %}
+            <p>
+            </div>
+          <div class='col-md-4'>
+             </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}

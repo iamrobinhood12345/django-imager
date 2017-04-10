@@ -96,3 +96,13 @@ ENV/
 
 # Miscellaneous
 *.sqlite
+
+# Ignore the files in the Media directory, but not the directory itself
+!imagersite/MEDIA/default_image.png
+!imagersite/MEDIA/.gitkeep
+!imagersite/MEDIA/images/.gitkeep
+!imagersite/static/images/image_1.jpg
+!imagersite/MEDIA/images/cover_photos/.gitkeep
+imagersite/MEDIA/*
+imagersite/MEDIA/images/*
+imagersite/MEDIA/images/cover_photos/*
