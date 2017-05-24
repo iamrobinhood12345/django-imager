@@ -41,7 +41,9 @@ INSTALLED_APPS = [
     'imagersite',
     'imager_profile',
     'imager_images',
-    'taggit'
+    'taggit',
+    'imager_api.apps.ImagerApiConfig',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
